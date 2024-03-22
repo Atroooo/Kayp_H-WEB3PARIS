@@ -1,6 +1,7 @@
 #!/bin/ash
 
 # Change to the app directory
+
 cd /volumeBackend
 
 sleep 3
