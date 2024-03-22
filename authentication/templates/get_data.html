@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>User Data</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+            }
+
+            #userDataContainer {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                width: 300px;
+                text-align: center;
+            }
+
+            img {
+                width: 200px;
+                height: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="userDataContainer">
+            <h2>User Data</h2>
+            <p id="welcomeMessage"></p>
+            <p id="bio"></p>
+            <p id="wins"></p>
+            <p id="loses"></p>
+            <img id="profilePicture" alt="Profile Picture" />
+        </div>
+
+        <script>
+            async function getUserData() {
+                try {
+                    // Assuming you have a valid endpoint for user data
+                    const response = await fetch(
+                        "https://127.0.0.1:8000/authentification/get_user_data/",
+                        {
+                            method: "GET",
+                            credentials: "include",
+                        }
+                    );
+                    if (!response.ok) {
+                        console.log(response);
+                        throw new Error("Failed to fetch user data");
+                    }
+
+                    const data = await response.json();
+                    const userData = data.user_data;
+                    console.log(userData);
+                    // Update the DOM to display user information
+                    document.getElementById(
+                        "welcomeMessage"
+                    ).textContent = `Welcome, ${userData.username}!`;
+                    document.getElementById(
+                        "bio"
+                    ).textContent = `Bio: ${userData.bio}`;
+                    document.getElementById(
+                        "wins"
+                    ).textContent = `Wins: ${userData.win}`;
+                    document.getElementById(
+                        "loses"
+                    ).textContent = `Loses: ${userData.lose}`;
+                    document.getElementById("profilePicture").src =
+                        userData.profile_picture;
+                } catch (error) {
+                    console.error("Error:", error);
+                }
+            }
+
+            // Call the function to get and display user data
+            getUserData();
+        </script>
+    </body>
+</html>

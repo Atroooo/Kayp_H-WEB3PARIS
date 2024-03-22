@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .login-container {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                width: 300px;
+                text-align: center;
+            }
+
+            input {
+                width: 100%;
+                padding: 10px;
+                margin: 10px 0;
+                box-sizing: border-box;
+            }
+
+            button {
+                background-color: #4caf50;
+                color: #fff;
+                padding: 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="login-container">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Username"
+                    required
+                />
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    required
+                />
+                <button type="button" id="loginButton">Login</button>
+            </form>
+        </div>
+
+        <script>
+            function getCsrfToken() {
+                return fetch(
+                    "https://127.0.0.1:8000/authentification/get-csrf-token/",
+                    {
+                        method: "GET",
+                        credentials: "include",
+                    }
+                )
+                    .then((response) => response.json())
+                    .then((data) => {
+                        csrfToken = data.csrfToken;
+                        return csrfToken;
+                    })
+                    .catch((error) => {
+                        console.error("Failed to get CSRF token", error);
+                        throw error;
+                    });
+            }
+
+            async function getUserData() {
+                return await fetch(
+                    "https://127.0.0.1:8000/authentification/get_user_data/",
+                    {
+                        method: "GET",
+                        credentials: "include",
+                    }
+                )
+                    .then((response) => response.json())
+                    .then((data) => {
+                        userData = data.user_data;
+                        console.log(data);
+                        return userData;
+                    })
+                    .catch((error) => {
+                        console.error("Failed to get data", error);
+                        throw error;
+                    });
+            }
+
+            async function login() {
+                const username = document.getElementById("username").value;
+                const password = document.getElementById("password").value;
+
+                // Get CSRF token
+                const csrfToken = await getCsrfToken();
+
+                // Perform login
+                await fetch("https://127.0.0.1:8000/authentification/login/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": csrfToken,
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({
+                        username: username,
+                        password: password,
+                    }),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        return;
+                    })
+                    .catch((error) => {
+                        console.error("Error during login fetch:", error);
+                    });
+                userData = await getUserData();
+                console.log(userData);
+                document.getElementById("loginForm").innerHTML = `
+                    <h2>Welcome, ${userData.username}!</h2>
+                    <p>Bio: ${userData.bio}</p>
+                    <p>Wins: ${userData.win}</p>
+                    <p>Loses: ${userData.lose}</p>
+                    <img src="${userData.profile_picture}" alt="Profile Picture" style="width: 200px; height: 200px;">
+                `;
+            }
+
+            // Add event listener for the login button
+            document
+                .getElementById("loginButton")
+                .addEventListener("click", login);
+        </script>
+    </body>
+</html>

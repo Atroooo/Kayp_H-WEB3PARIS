@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>getAuthorizationCode</title>
+        <style>
+            /* Add your CSS styles here */
+            button {
+                padding: 10px;
+                margin: 10px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Add your HTML content here -->
+        <button
+            id="getAuthorizationCodeButton"
+            onclick="getAuthorizationCode()"
+        >
+            Get Authorization Code
+        </button>
+        <button
+            id="getAuthenticationTokenButton"
+            onclick="getAuthenticationToken()"
+        >
+            Get Authentication Token
+        </button>
+        <button id="CreateAccountButton" onclick="createAccount()">
+            Create Account
+        </button>
+        <button id="LoginButton" onclick="loginAccount()">Login Account</button>
+        <div id="data"></div>
+
+        <script>
+            function getUserData() {
+                return fetch(
+                    "https://127.0.0.1:8000/authentification/get_user_data/",
+                    {
+                        method: "GET",
+                        credentials: "include",
+                    }
+                )
+                    .then((response) => response.json())
+                    .then((data) => {
+                        userData = data.user_data;
+                        return userData;
+                    })
+                    .catch((error) => {
+                        console.error("Failed to get data", error);
+                        throw error;
+                    });
+            }
+
+            async function loginAccount() {
+                const access_token = await getAuthenticationToken();
+                if (access_token === undefined) {
+                    console.error("access_token is undefined");
+                    return;
+                }
+                const csrfCookie = await getCsrfToken();
+                await fetch(
+                    "https://127.0.0.1:8000/authentification/login_with_42_api/",
+                    {
+                        method: "POST",
+                        headers: {
+                            "X-CSRFToken": csrfCookie,
+                            "Content-Type": "application/json",
+                        },
+                        credentials: "include",
+                        body: JSON.stringify({
+                            access_token: access_token,
+                        }),
+                    }
+                )
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        if (data.status === "success") getUserData();
+                    });
+                userData = await getUserData();
+                console.log(userData);
+                document.getElementById("data").innerHTML = `
+                            <h2>Welcome, ${userData.username}!</h2>
+                            <p>Bio: ${userData.bio}</p>
+                            <p>Wins: ${userData.win}</p>
+                            <p>Loses: ${userData.lose}</p>
+                            <img src="${userData.profile_picture}" alt="Profile Picture" style="width: 200px; height: 200px;">
+                        `;
+            }
+
+            async function createAccount() {
+                const access_token = await getAuthenticationToken();
+                const csrfCookie = await getCsrfToken();
+                fetch(
+                    "https://127.0.0.1:8000/authentification/register_with_42_api/",
+                    {
+                        method: "POST",
+                        headers: {
+                            "X-CSRFToken": csrfCookie,
+                            "Content-Type": "application/json",
+                        },
+                        credentials: "include",
+                        body: JSON.stringify({
+                            access_token: access_token,
+                        }),
+                    }
+                )
+                    .then((response) => response.json())
+                    .then((tokenData) => {
+                        return tokenData.access_token;
+                    })
+                    .catch((error) => {
+                        console.error("Token Exchange Error:", error);
+                    });
+            }
+
+            function getCodeFromUrl() {
+                const currentUrl = window.location.href;
+                const array = currentUrl.split("code=");
+                const code = array.pop();
+                return code;
+            }
+
+            async function getAuthenticationToken() {
+                const csrfCookie = await getCsrfToken();
+                return await fetch(
+                    "https://127.0.0.1:8000/authentification/get_auth_token_api",
+                    {
+                        method: "POST",
+                        headers: {
+                            "X-CSRFToken": csrfCookie,
+                            "Content-Type": "application/json",
+                        },
+                        credentials: "include",
+                        body: JSON.stringify({
+                            code: getCodeFromUrl(),
+                        }),
+                    }
+                )
+                    .then((response) => response.json())
+                    .then((tokenData) => {
+                        return tokenData.access_token;
+                    })
+                    .catch((error) => {
+                        console.error("Token Exchange Error:", error);
+                    });
+            }
+
+            function getCsrfToken() {
+                return fetch(
+                    "https://127.0.0.1:8000/authentification/get-csrf-token/",
+                    {
+                        method: "GET",
+                        credentials: "include",
+                    }
+                )
+                    .then((response) => response.json())
+                    .then((data) => {
+                        csrfToken = data.csrfToken;
+                        return csrfToken;
+                    })
+                    .catch((error) => {
+                        console.error("Failed to get CSRF token", error);
+                        throw error;
+                    });
+            }
+
+            function getAuthorizationCode() {
+                const authorizationUrl =
+                    "https://api.intra.42.fr/oauth/authorize";
+                const clientId =
+                    "u-s4t2ud-29ae38779c31809fdccabeebbbd4b4cce1a64b3a82a7f3f17556c16371497d6d";
+                const redirectUri =
+                    "https%3A%2F%2F127.0.0.1%3A5500%2FWeb%2Fbackend%2Fauthentification%2Ftemplates%2Flogin_with42api.html";
+                const responseType = "code";
+                const url = `${authorizationUrl}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}`;
+                window.location.href = url;
+            }
+        </script>
+    </body>
+</html>
