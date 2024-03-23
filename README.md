@@ -1,17 +1,17 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/9113740/201498864-2a900c64-d88f-4ed4-b5cf-770bcb57e1f5.png">
-  <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/9113740/201498152-b171abb8-9225-487a-821c-6ff49ee48579.png">
-</picture>
+	
+![Color_logo_with_background](https://github.com/Atroooo/BPELO/assets/117669219/41792310-cb7b-402a-9e54-0781a5e53cc5)
 
-<div align="center"><strong>Next.js 14 Admin Dashboard Starter Template With Shadcn-ui</strong></div>
-<div align="center">Built with the Next.js App Router</div>
-<br />
-<div align="center">
-<a href="https://next-shadcn-dashboard-starter.vercel.app">View Demo</a>
-<span>
-</div>
+# Getting Started
 
-## Front-end
+Follow these steps to clone the repository and start the development server:
+
+- `git clone https://github.com/Atroooo/BPELO.git`
+- `npm install`
+- `npm run dev`
+
+You should now be able to access the application at http://localhost:5173.
+
+# Front-end
 
 This using the following stack:
 
@@ -31,14 +31,29 @@ This using the following stack:
 | [Login](https://localhost:5173/login)                                       | Login page                  |
 | [Dashboard](https://localhost:5173/)              | Dashboard                   |
 | [Create eBL](https://localhost:5173/bol/create)    | Create a new eBL            |
-| [List eBL](https://localhost:5173/bol/list) | List and manage all the eBl |
+| [List eBL](https://localhost:5173/bol/list) | List and manage all the eBL |
 
-## Getting Started
+# Blockchain Implementation
+To ensure flawless security, all documents are hashed (encrypted in an irreversible manner), and the hashes are sent to the blockchain. Each bill of lading has a unique ID and a distinct smart contract.
 
-Follow these steps to clone the repository and start the development server:
+Upon deployment, the main contract initiates a map linking an ID to the corresponding contract address.
+When calling the main smart contract, we check if we already know the ID of the bill of lading.
 
-- `git clone https://github.com/Atroooo/BPELO.git`
-- `npm install`
-- `npm run dev`
+-If it is not recognized, then it is a new document, and the main smart contract called `Deployer` creates a new smart contract that will store the document's hash.
 
-You should now be able to access the application at http://localhost:5173.
+-If it is recognized, then it is a modification of an existing bill of lading. We find the document's smart contract to replace the old hash with the new one.
+
+Each bill of lading has a smart contract that stores its hashed information in the blockchain. They are stored in two ways.
+First, the entire document is hashed and store with this setter:
+```
+@sp.entrypoint
+def storeHash(self, whole_hash):
+	self.data.stored_whole_hash = whole_hash
+```
+Then, the document is stored part by part with each part of the document hashed then store in a map. This method allows independent verification of each part of the document:
+```
+@sp.entrypoint
+def storePartHashes(self, part_hashes):
+	for item in part_hashes.items():
+		self.data.stored_part_hashes[item.key] = item.value
+```
