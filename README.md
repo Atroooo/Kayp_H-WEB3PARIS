@@ -40,6 +40,7 @@ Upon deployment, the main contract initiates a map linking an ID to the correspo
 When calling the main smart contract, we check if we already know the ID of the bill of lading.
 
 -If it is not recognized, then it is a new document, and the main smart contract called `Deployer` creates a new smart contract that will store the document's hash.
+
 -If it is recognized, then it is a modification of an existing bill of lading. We find the document's smart contract to replace the old hash with the new one.
 
 Each bill of lading has a smart contract that stores its hashed information in the blockchain. They are stored in two ways.
