@@ -1,5 +1,7 @@
 import smartpy as sp
 
+# Smart Contract template of the bill of ladings. Each document has its own smart
+# contract.
 @sp.module
 def main():
     class HashStorage(sp.Contract):
@@ -11,15 +13,18 @@ def main():
                 sp.map[sp.string, sp.bytes]
             )
 
+# Store the hashed document in the blockchain.
         @sp.entrypoint
         def storeHash(self, whole_hash):
             self.data.stored_whole_hash = whole_hash
 
+# Store a map of hashed entries of the document in the blockchain.
         @sp.entrypoint
         def storePartHashes(self, part_hashes):
             for item in part_hashes.items():
                 self.data.stored_part_hashes[item.key] = item.value
 
+# Factory Smart Contract creating a new contract for each bill of lading.
     class Deployer(sp.Contract):
         def __init__(self):
             self.data.contracts = sp.cast(
@@ -27,6 +32,8 @@ def main():
                 sp.map[sp.nat, sp.address]
             )
 
+# if the id is in the database, we call the corresponding contract to store the new
+# hash. Else, we create a new contract and store it in the database.
         @sp.entrypoint
         def CreateContract(self, id, whole_hash, part_hashes):
             if self.data.contracts.contains(id):
