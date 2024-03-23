@@ -4,10 +4,6 @@ networks:
     transcendence_network:
         driver: bridge
 
-volumes:
-    node_data:
-    client_data:
-
 services:
     frontend:
         container_name: frontend
@@ -34,12 +30,5 @@ services:
         networks:
             - transcendence_network
 
-    tezos_node:
-        image: tezos/tezos:alphanet
-        command: tezos-node
-        ports:
-            - 8732:8732
-        volumes:
-            - node_data:/var/run/tezos/node
-            - client_data:/var/run/tezos/client
+
 

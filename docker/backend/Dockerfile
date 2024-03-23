@@ -1,4 +1,4 @@
-FROM python:alpine
+FROM python:3.10.12-alpine
 
 ENV PYTHONUNBUFFERED=1
 
@@ -8,7 +8,9 @@ RUN apk add --no-cache python3-dev \
 RUN apk add --no-cache \
     build-base \
     libffi-dev \
-    python3-dev
+    libsodium-dev \
+    libsecp256k1-dev \
+    gmp-dev
 
 COPY ./backend/requirements.txt requirements.txt
 

@@ -1,0 +1,10 @@
+asgiref==3.7.2
+Django==5.0.1
+django-cors-headers==4.3.1
+django-extensions==3.2.3
+six==1.16.0
+requests==2.31.0
+sqlparse==0.4.4
+celery==5.3.6
+https://smartpy.io/static/tezos_smartpy-0.19.1-py3-none-any.whl
+pytezos==3.11.3
