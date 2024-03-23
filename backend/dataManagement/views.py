@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
 
-from .viewUtils import getClient, getContractList
+from .viewUtils.viewUtils import getClient, getContractList
 from .contractUtils import parseData, deployContract
 
 # Create your views here.
@@ -16,7 +16,8 @@ class manageContract(View):
     def post(self, request):
         bill = parseData.parseData(request)
         mainHash, hashedData = parseData.getHashedData(request)
-        if (deployContract.checkIfContractIsActive(request)):
+        contractHash = deployContract.checkIfContractIsActive(request)
+        if (contractHash is not None):
             deployContract.fillContract(contractHash, mainHash, hashedData)
         else:
             contractHash = deployContract.deployContract(bill)

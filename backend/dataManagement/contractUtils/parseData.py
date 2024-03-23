@@ -1,8 +1,21 @@
-from ..models import BillOfLading, Shipper, Consignee, Cargo, VesselDetails
+from dataManagement.models import BillOfLading, Shipper, Consignee, Cargo, VesselDetails
 
 import hashlib
 
 def parseData(data):
+    """
+    Fill the model Bill of lading with the data entered by the user
+
+    Parameters
+    ----------
+    arg1 : JSON
+        data in JSON format
+
+    Returns
+    -------
+    billOfLading object
+        bill of lading object model
+    """
     bill = BillOfLading.objects.create(billOfLadingNumber = data["billOfLadingNumber"], termsOfDelivery = data["termsOfDelivery"], \
                                 carrierSignature = data["carrierSignature"], specialInstruction = data["specialInstructions"])
     shipperData = data["shipper"]
@@ -21,44 +34,38 @@ def parseData(data):
     return (bill)
 
 def hash_value(value):
-  """Hashes a value using SHA-256 and returns the hexdigest."""
+  """
+    Hashes a value using SHA-256 and returns the hexdigest.
+  
+    Parameters
+    ----------
+    arg1 : int, str
+        data that need to be hashed
+
+    Returns
+    -------
+    str
+        hashed data
+  """
   m = hashlib.sha256()
-  m.update(str(value).encode())  # Convert to string and encode for hashing
+  m.update(str(value).encode())
   return m.hexdigest()
 
-def hashData(data2):
-    data = {
-    "shipper": {
-        "name": "Acme Widgets Inc.",
-        "address": "123 Main Street, Anytown",
-        "contact": "555-1212"
-    },
-    "consignee": {
-        "name": "Gadget Emporium",
-        "address": "456 Elm Street, Springfield",
-        "contact": "555-5555"
-    },
-    "cargo": {
-        "description": "100 boxes of widgets",
-        "quantity": 100,
-        "weight": 500,
-        "volume": 2,  
-        "value": 10000
-    },
-    "billOfLadingNumber": "BL-12345",
-    "termsOfDelivery": "FOB (Free on Board)",
-    "vesselDetails": {
-        "name": "MV Ever Given",
-        "loadingPort": "Los Angeles",
-        "destinationPort": "Singapore",
-        "dateOfLoading": "2024-03-24" 
-    },
-    "carrierSignature": "John Smith (Captain)",
-    "specialInstructions": "Handle with care. Keep dry."
-    }
+def hashData(data):
+    """
+    Hash the eBL document that will be store in the smart contract
 
-    m = hashlib.sha256()
-    mainHash = m.hexdigest(data)
+    Parameters
+    ----------
+    arg1 : JSON
+       data in JSON format
+
+    Returns
+    -------
+    str, map
+        return the contract hashed and every part of the contract hashed in a map
+    """
+    mainHash = hash_value(data)
 
     hashedData = {}
     for key, value in data.items():
@@ -70,6 +77,4 @@ def hashData(data2):
         else:
             hashedData[key] = hash_value(value)
 
-    print(hashedData)
-
-hashData(None)
+    return mainHash, hashedData

@@ -1,7 +1,7 @@
-from . import models
+from dataManagement.models import models
 from django.forms.models import model_to_dict
 
-from ..models import billOfLading, Shipper, Consignee, Cargo, VesselDetails
+from dataManagement.models import billOfLading, Shipper, Consignee, Cargo, VesselDetails
 
 def getClient(clientName):
     shippers = models.Shipper.objects.all()
