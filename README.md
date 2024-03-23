@@ -28,7 +28,7 @@ This using the following stack:
 
 | Pages                                                                       | Specifications              |
 |:----------------------------------------------------------------------------|:----------------------------|
-| [Login](https://localhost:5173/login)                                       | Login page                  |
+| [Login](https://localhost:5173/log-in)                                      | Login page                  |
 | [Dashboard](https://localhost:5173/)              | Dashboard                   |
 | [Create eBL](https://localhost:5173/bol/create)    | Create a new eBL            |
 | [List eBL](https://localhost:5173/bol/list) | List and manage all the eBL |
