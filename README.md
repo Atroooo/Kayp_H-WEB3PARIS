@@ -43,11 +43,16 @@ When calling the main smart contract, we check if we already know the ID of the 
 -If it is recognized, then it is a modification of an existing bill of lading. We find the document's smart contract to replace the old hash with the new one.
 
 Each bill of lading has a smart contract that stores its hashed information in the blockchain. They are stored in two ways.
-First, the entire document is hashed and store with this setter.
+First, the entire document is hashed and store with this setter:
+```
+@sp.entrypoint
+def storeHash(self, whole_hash):
+	self.data.stored_whole_hash = whole_hash
+```
 Then, the document is stored part by part with each part of the document hashed then store in a map. This method allows independent verification of each part of the document:
 ```
-        @sp.entrypoint
-        def storePartHashes(self, part_hashes):
-            for item in part_hashes.items():
-                self.data.stored_part_hashes[item.key] = item.value
+@sp.entrypoint
+def storePartHashes(self, part_hashes):
+	for item in part_hashes.items():
+		self.data.stored_part_hashes[item.key] = item.value
 ```
