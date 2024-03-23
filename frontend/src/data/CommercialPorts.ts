@@ -1,0 +1,22 @@
+export const commercialPorts: string[] = [
+    "Port of Shanghai, China",
+    "Port of Singapore, Singapore",
+    "Port of Rotterdam, Netherlands",
+    "Port of Tianjin, China",
+    "Port of Ningbo-Zhoushan, China",
+    "Port of Busan, South Korea",
+    "Port of Hong Kong, China",
+    "Port of Guangzhou, China",
+    "Port of Qingdao, China",
+    "Port of Dalian, China",
+    "Port of Jebel Ali, United Arab Emirates",
+    "Port of Hamburg, Germany",
+    "Port of Antwerp, Belgium",
+    "Port of Los Angeles, United States",
+    "Port of Long Beach, United States",
+    "Port of New York and New Jersey, United States",
+    "Port of Kaohsiung, Taiwan",
+    "Port of Charleston, United States",
+    "Port of New Orleans, United States",
+    "Port of Tokyo, Japan"
+];

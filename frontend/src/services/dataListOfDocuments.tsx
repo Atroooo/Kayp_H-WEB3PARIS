@@ -1,3 +1,5 @@
+import {DataTable} from "@/views/ListOfDocuments.tsx";
+
 export const dataListOfDocuments: DataTable[] = [
     {
         id: "B/L001",
