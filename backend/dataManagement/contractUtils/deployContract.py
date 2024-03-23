@@ -14,7 +14,6 @@ def deployContract():
     value = pytezosWallet.origination(script=ci.script()).send(min_confirmations=1)
     return value.opg_hash
 
-deployContract()
 
 def fillContract(contractHash):
     global key, pytezosWallet
