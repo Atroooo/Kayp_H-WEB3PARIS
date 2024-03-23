@@ -1,0 +1,49 @@
+Comment...
+ h1: Factory Contract
+Comment...
+ h2: Make the factory contract
+Creating contract KT1TezoooozzSmartPyzzSTATiCzzzwwBFA1
+ -> {}
+file Deployer/step_003_cont_0_storage.tz
+file Deployer/step_003_cont_0_storage.json
+file Deployer/step_003_cont_0_storage.py
+file Deployer/step_003_cont_0_types.py
+file Deployer/step_003_cont_0_contract.tz contract Deployer
+file Deployer/step_003_cont_0_contract.json contract Deployer
+Comment...
+ p: Create hashes and Ids to test
+Comment...
+ h2: First hash for id 1
+file Deployer/step_006_cont_0_params.py
+file Deployer/step_006_cont_0_params.tz
+file Deployer/step_006_cont_0_params.json
+Executing CreateContract(sp.record(id = 1, part_hashes = {'key1' : sp.bytes('0xd8048993ee4eaf6ab72d1e26fed8a84639fe1c8e715c487f2b0243a76ed9cf1e'), 'key2' : sp.bytes('0x6dbf5a2381dbe86d7b2dec43d06fcbc3a9e96459b8077a645019baf88d1a2169'), 'key3' : sp.bytes('0x347a4e38051a366168fb81f2d117fa46bf77ebd0fa98467611bb0ef95adc974f'), 'key4' : sp.bytes('0x6f361a8bf73988e6474c763b8f917a894270de0cba8aadbed8ab5bb7c75f118d')}, whole_hash = sp.bytes('0x642fee287f73402d6b64af39b3a73740f777a6fd89c6c84f77e18b67f51ab476')))...
+ -> {Elt 1 "KT1Tezooo1zzSmartPyzzSTATiCzzzyfC8eF"}
+  + Create Contract(address: KT1Tezooo1zzSmartPyzzSTATiCzzzyfC8eF, baker: None)sp.record(id = 1, stored_part_hashes = {'key1' : sp.bytes('0xd8048993ee4eaf6ab72d1e26fed8a84639fe1c8e715c487f2b0243a76ed9cf1e'), 'key2' : sp.bytes('0x6dbf5a2381dbe86d7b2dec43d06fcbc3a9e96459b8077a645019baf88d1a2169'), 'key3' : sp.bytes('0x347a4e38051a366168fb81f2d117fa46bf77ebd0fa98467611bb0ef95adc974f'), 'key4' : sp.bytes('0x6f361a8bf73988e6474c763b8f917a894270de0cba8aadbed8ab5bb7c75f118d')}, stored_whole_hash = sp.bytes('0x642fee287f73402d6b64af39b3a73740f777a6fd89c6c84f77e18b67f51ab476'))
+Creating contract KT1Tezooo1zzSmartPyzzSTATiCzzzyfC8eF
+ -> (Pair 1 (Pair {Elt "key1" 0xd8048993ee4eaf6ab72d1e26fed8a84639fe1c8e715c487f2b0243a76ed9cf1e; Elt "key2" 0x6dbf5a2381dbe86d7b2dec43d06fcbc3a9e96459b8077a645019baf88d1a2169; Elt "key3" 0x347a4e38051a366168fb81f2d117fa46bf77ebd0fa98467611bb0ef95adc974f; Elt "key4" 0x6f361a8bf73988e6474c763b8f917a894270de0cba8aadbed8ab5bb7c75f118d} 0x642fee287f73402d6b64af39b3a73740f777a6fd89c6c84f77e18b67f51ab476))
+file Deployer/step_006_cont_1_storage.tz
+file Deployer/step_006_cont_1_storage.json
+file Deployer/step_006_cont_1_storage.py
+file Deployer/step_006_cont_1_types.py
+file Deployer/step_006_cont_1_contract.tz contract HashStorage
+file Deployer/step_006_cont_1_contract.json contract HashStorage
+Comment...
+ h2: Second hash for id 1
+file Deployer/step_008_cont_0_params.py
+file Deployer/step_008_cont_0_params.tz
+file Deployer/step_008_cont_0_params.json
+Executing CreateContract(sp.record(id = 1, part_hashes = {'age' : sp.bytes('0x12ba3dc005b616949f0aa66c0089c967f680ebd38424f4ee2de9ad5f52333c8c'), 'cargo-ono' : sp.bytes('0xe3140013408bf047f87f902d86885e01391bdbcab72dd2594d49c1c0a20463e8'), 'name' : sp.bytes('0xe09c8ad70d47e31c96b340e779640aee17e2a2bdd58074939ae0dd805f69da66')}, whole_hash = sp.bytes('0xe09c8ad70d47e31c96b340e779640aee17e2a2bdd58074939ae0dd805f69da66')))...
+ -> {Elt 1 "KT1Tezooo1zzSmartPyzzSTATiCzzzyfC8eF"}
+  + Transfer
+     params: sp.bytes('0xe09c8ad70d47e31c96b340e779640aee17e2a2bdd58074939ae0dd805f69da66')
+     amount: sp.tez(0)
+     to:     sp.contract(sp.bytes, sp.address('KT1Tezooo1zzSmartPyzzSTATiCzzzyfC8eF%storeHash')).open_some()
+  + Transfer
+     params: {'age' : sp.bytes('0x12ba3dc005b616949f0aa66c0089c967f680ebd38424f4ee2de9ad5f52333c8c'), 'cargo-ono' : sp.bytes('0xe3140013408bf047f87f902d86885e01391bdbcab72dd2594d49c1c0a20463e8'), 'name' : sp.bytes('0xe09c8ad70d47e31c96b340e779640aee17e2a2bdd58074939ae0dd805f69da66')}
+     amount: sp.tez(0)
+     to:     sp.contract(sp.map(sp.string, sp.bytes), sp.address('KT1Tezooo1zzSmartPyzzSTATiCzzzyfC8eF%storePartHashes')).open_some()
+Executing storeHash(sp.bytes('0xe09c8ad70d47e31c96b340e779640aee17e2a2bdd58074939ae0dd805f69da66'))...
+ -> (Pair 1 (Pair {Elt "key1" 0xd8048993ee4eaf6ab72d1e26fed8a84639fe1c8e715c487f2b0243a76ed9cf1e; Elt "key2" 0x6dbf5a2381dbe86d7b2dec43d06fcbc3a9e96459b8077a645019baf88d1a2169; Elt "key3" 0x347a4e38051a366168fb81f2d117fa46bf77ebd0fa98467611bb0ef95adc974f; Elt "key4" 0x6f361a8bf73988e6474c763b8f917a894270de0cba8aadbed8ab5bb7c75f118d} 0xe09c8ad70d47e31c96b340e779640aee17e2a2bdd58074939ae0dd805f69da66))
+Executing storePartHashes({'age' : sp.bytes('0x12ba3dc005b616949f0aa66c0089c967f680ebd38424f4ee2de9ad5f52333c8c'), 'cargo-ono' : sp.bytes('0xe3140013408bf047f87f902d86885e01391bdbcab72dd2594d49c1c0a20463e8'), 'name' : sp.bytes('0xe09c8ad70d47e31c96b340e779640aee17e2a2bdd58074939ae0dd805f69da66')})...
+ -> (Pair 1 (Pair {Elt "age" 0x12ba3dc005b616949f0aa66c0089c967f680ebd38424f4ee2de9ad5f52333c8c; Elt "cargo-ono" 0xe3140013408bf047f87f902d86885e01391bdbcab72dd2594d49c1c0a20463e8; Elt "key1" 0xd8048993ee4eaf6ab72d1e26fed8a84639fe1c8e715c487f2b0243a76ed9cf1e; Elt "key2" 0x6dbf5a2381dbe86d7b2dec43d06fcbc3a9e96459b8077a645019baf88d1a2169; Elt "key3" 0x347a4e38051a366168fb81f2d117fa46bf77ebd0fa98467611bb0ef95adc974f; Elt "key4" 0x6f361a8bf73988e6474c763b8f917a894270de0cba8aadbed8ab5bb7c75f118d; Elt "name" 0xe09c8ad70d47e31c96b340e779640aee17e2a2bdd58074939ae0dd805f69da66} 0xe09c8ad70d47e31c96b340e779640aee17e2a2bdd58074939ae0dd805f69da66))
