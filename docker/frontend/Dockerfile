@@ -1,16 +1,13 @@
-FROM node:16
+FROM node:21
+
+EXPOSE 5173
 
 WORKDIR /usr/src/app
 
-RUN npm install -g webpack webpack-cli webpack-dev-server
-RUN apt-get update
+COPY ./frontend/package*.json .
+COPY ./frontend/ .
 
-COPY ./frontend/package.json .
+#RUN npm install -g npm@9.5.0 -s
+RUN npm install -s
 
-RUN npm install
-
-COPY ./frontend .
-
-EXPOSE 3000
-
-CMD ["npm", "run", "dev"]
+CMD [ "npm", "run", "dev" ]

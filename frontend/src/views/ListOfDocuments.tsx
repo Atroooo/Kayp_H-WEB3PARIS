@@ -2,7 +2,6 @@ import { CardsStats } from "@/components/Charts";
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
