@@ -1,7 +1,7 @@
 from dataManagement.models import models
 from django.forms.models import model_to_dict
 
-from dataManagement.models import billOfLading, Shipper, Consignee, Cargo, VesselDetails
+from dataManagement.models import BillOfLading, Shipper, Consignee, Cargo, VesselDetails
 
 def getClient(clientName):
     shippers = models.Shipper.objects.all()
@@ -11,7 +11,7 @@ def getClient(clientName):
             return shipper
         
 def getContractList(client):
-    contracts = models.billOfLading.objects.all()
+    contracts = models.BillOfLading.objects.all()
     contract_list = []
     for contract in contracts:
         if (client == contract.shipper):
