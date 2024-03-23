@@ -21,7 +21,7 @@ export default function Sidebar2({ className }: SidebarProps) {
     return (
         <aside
             className={cn(
-                `fixed left-0 right-0 top-0 z-50 w-full border-r-2 border-r-muted transition-[width] md:bottom-0 md:right-auto md:h-svh md:w-64`,
+                `left-0 right-0 top-0 z-50 w-full border-r-2 border-r-muted transition-[width] md:bottom-0 md:right-auto md:h-svh md:w-64`,
                 className
             )}
         >
