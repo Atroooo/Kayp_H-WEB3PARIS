@@ -5,16 +5,13 @@ from django.shortcuts import render
 from django.contrib.auth import logout, authenticate, get_user_model, login
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_str
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from django.views.decorators.http import require_http_methods
 import json
-from .tokens import account_activation_token, reset_password_token
+from .tokens import account_activation_token
 from .tasks import delete_account_if_not_activate
 from .viewsUtils import (
     send_activate_email,
-    send_forgot_password_email,
 )
 
 @require_http_methods(["GET"])
@@ -58,14 +55,14 @@ def login_user(request):
         data = json.loads(request.body.decode('utf8'))
     except json.JSONDecodeError:
         return JsonResponse(data={'errors': "Invalid JSON format"}, status=400)
-    username = data.get("username")
+    email = data.get("email")
     password = data.get("password")
-    if (username == "") or (username is None) \
+    if (email == "") or (email is None) \
         or (password == "") or (password is None):
         return JsonResponse(
             {"errors": "Missing username or password"}, status=400
         )
-    user = authenticate(request, username=username, password=password)
+    user = authenticate(request, username=email, password=password)
     if user is None:
         return JsonResponse(
             {"errors": "Wrong username or password"}, status=400
