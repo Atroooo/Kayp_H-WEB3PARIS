@@ -51,7 +51,7 @@ def storeHash(self, whole_hash):
 
  Then, the document is stored part by part with each part of the document hashed then store in a map. This method allows independent verification of each part of the document:
  
- ```@sp.entrypoint
+ @sp.entrypoint
 def storePartHashes(self, part_hashes):
 	for item in part_hashes.items():
-                self.data.stored_part_hashes[item.key] = item.value```
+                self.data.stored_part_hashes[item.key] = item.value
