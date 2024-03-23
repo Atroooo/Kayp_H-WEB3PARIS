@@ -5,16 +5,16 @@ networks:
         driver: bridge
 
 services:
-    # frontend:
-    #     container_name: frontend
-    #     build:
-    #         context: .
-    #         dockerfile: ./docker/frontend/Dockerfile
-    #     working_dir: /usr/src/app
-    #     volumes:
-    #         - ./frontend:/usr/src/app
-    #     ports:
-    #         - "3000:3000"
+    frontend:
+        container_name: frontend
+        build:
+            context: .
+            dockerfile: ./docker/frontend/Dockerfile
+        working_dir: /usr/src/app
+        volumes:
+            - ./frontend:/usr/src/app
+        ports:
+            - "3000:3000"
 
     backend:
         build:
