@@ -4,7 +4,7 @@ import Sidebar2 from "@/components/Sidebar.tsx";
 import Login from "./views/Login";
 
 import { create } from "zustand";
-import {BolCreate} from "@/views/BolCreate.tsx";
+import { BolCreate } from "@/views/BolCreate.tsx";
 
 export interface IsConnectedStoreInterface {
     isConnected: boolean;
@@ -12,7 +12,7 @@ export interface IsConnectedStoreInterface {
 }
 
 export const isConnectedStore = create((set) => ({
-    isConnected: false,
+    isConnected: true,
     setIsConnected: (connectingState: boolean) =>
         set({ isConnected: connectingState }),
 }));
@@ -52,12 +52,18 @@ function App() {
                             }
                         ></Route>
 
-                          <Route path="/bol/create" element={
-                              <ProtectedRoute isAllowed={isConnected} redirectPath={loginFallback}>
-                                  <Sidebar2 />
-                                  <BolCreate />
-                              </ProtectedRoute>}>
-                          </Route>
+                        <Route
+                            path="/bol/create"
+                            element={
+                                <ProtectedRoute
+                                    isAllowed={isConnected}
+                                    redirectPath={loginFallback}
+                                >
+                                    <Sidebar2 />
+                                    <BolCreate />
+                                </ProtectedRoute>
+                            }
+                        ></Route>
 
                         <Route
                             path="/bol/list"
