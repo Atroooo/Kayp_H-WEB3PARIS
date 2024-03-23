@@ -2,24 +2,24 @@ import { CardsStats } from "@/components/Charts";
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
 import { dataListOfDocuments } from "@/services/dataListOfDocuments";
+import {PageLayout} from "@/components/Bol/PageLayout.tsx";
+import {Separator} from "@/components/ui/separator.tsx";
 
 function Statistics(): JSX.Element {
     return (
         <div>
-            <h1 className="mb-5 text-4xl">Some statistics.</h1>
             <CardsStats />
         </div>
     );
 }
 
-interface DataTable {
+export interface DataTable {
     id: string;
     status: string;
     issuer: string;
@@ -62,12 +62,12 @@ function DataTableBody(): JSX.Element {
 
 function DataTable(): JSX.Element {
     return (
-        <div className="mt-20">
-            <h3 className=" text-4xl">Bill of landing history</h3>
+        <div>
+            <h3 className="text-2xl font-semibold leading-none tracking-tight text-start">History</h3>
             <div className=" max-h-96 overflow-y-auto ">
                 <Table className="mt-5 border ">
-                    <DataTableHeader />
-                    <DataTableBody />
+                    <DataTableHeader/>
+                    <DataTableBody/>
                 </Table>
             </div>
         </div>
@@ -76,9 +76,12 @@ function DataTable(): JSX.Element {
 
 export function ListOfDocuments() {
     return (
-        <div className=" m-20">
-            <Statistics />
-            <DataTable />
-        </div>
+        <PageLayout title={"Dashboard"} description={"some statistics..."}>
+            <div className={"flex flex-col gap-12"}>
+                <Statistics />
+                <Separator />
+                <DataTable />
+            </div>
+        </PageLayout>
     );
 }

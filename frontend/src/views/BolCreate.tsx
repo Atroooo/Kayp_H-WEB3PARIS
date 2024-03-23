@@ -1,11 +1,14 @@
-import {BolCreateCard} from "@/components/Bol/BolCreateCard.tsx";
+import {PageLayout} from "@/components/Bol/PageLayout.tsx";
 import {BolCreateForm} from "@/components/Bol/BolCreateForm.tsx";
 
 
 export const BolCreate = () => {
     return (
-        <BolCreateCard>
-            <BolCreateForm />
-        </BolCreateCard>
+        <div className={"flex w-full"}>
+            <PageLayout title={"Create a eBL"}>
+                <BolCreateForm />
+            </PageLayout>
+
+        </div>
     );
 }

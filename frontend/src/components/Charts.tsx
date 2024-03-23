@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {Bar, BarChart, ResponsiveContainer} from "recharts";
 
 const data = [
     {

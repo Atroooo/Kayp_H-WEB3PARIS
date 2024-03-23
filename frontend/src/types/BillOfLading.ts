@@ -3,25 +3,19 @@ import {z} from "zod";
 type Shipper = {
     name: string;
     address: string;
-    contact: string;
 };
 
 type Consignee = {
     name: string;
     address: string;
-    contact: string;
 };
 
 type Cargo = {
     description: string;
-    quantity: number;
-    weight: number;
-    volume: number;
-    value: number;
+    value: string;
 };
 
 type VesselDetails = {
-    name: string;
     loadingPort: string;
     destinationPort: string;
     dateOfLoading: Date;
@@ -31,11 +25,7 @@ type BillOfLading = {
     shipper: Shipper;
     consignee: Consignee;
     cargo: Cargo;
-    billOfLadingNumber: string;
-    termsOfDelivery: string;
     vesselDetails: VesselDetails;
-    carrierSignature: string;
-    specialInstructions: string;
 };
 
 const ShipperSchema = z.object({
