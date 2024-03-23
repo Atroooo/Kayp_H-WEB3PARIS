@@ -24,7 +24,7 @@ class VesselDetails(models.Model):
     destinationPort = models.CharField(max_length = 200, default = "default")
     dateOfLoading = models.DateTimeField()
 
-class billOfLading(models.Model):
+class BillOfLading(models.Model):
     shipper = models.ForeignKey(Shipper, on_delete=models.CASCADE, blank=True, null=True)
     consignee = models.ForeignKey(Consignee, on_delete=models.CASCADE, blank=True, null=True)
     cargo = models.ForeignKey(Cargo, on_delete=models.CASCADE, blank=True, null=True)
@@ -33,3 +33,4 @@ class billOfLading(models.Model):
     vesselDetails = models.ForeignKey(VesselDetails, on_delete=models.CASCADE, blank=True, null=True)
     carrierSignature = models.CharField(max_length = 2000, default = "default")
     specialInstructions = models.CharField(max_length = 2000, default = "default")
+    contractHash = models.CharField(max_length = 100, default = "default")

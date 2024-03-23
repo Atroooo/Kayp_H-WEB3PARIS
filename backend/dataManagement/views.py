@@ -14,10 +14,14 @@ class manageContract(View):
         return JsonResponse({'contracts': contracts}, status = 200)
 
     def post(self, request):
-        parseData.parseData(request)
-        contractHash = deployContract.deployContract()
-        hashedData = parseData.getHashedData(request)
-        deployContract.fillContract(contractHash, hashedData)
+        bill = parseData.parseData(request)
+        mainHash, hashedData = parseData.getHashedData(request)
+        if (deployContract.checkIfContractIsActive(request)):
+            deployContract.fillContract(contractHash, mainHash, hashedData)
+        else:
+            contractHash = deployContract.deployContract(bill)
+            deployContract.fillContract(contractHash, mainHash, hashedData)
+
         return JsonResponse({"message": "success"}, status = 200)
 
     def on_delete(self, request):
