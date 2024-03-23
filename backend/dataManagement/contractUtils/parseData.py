@@ -1,4 +1,4 @@
-from models import billOfLading, Shipper, Consignee, Cargo, VesselDetails
+from dataManagement.models import billOfLading, Shipper, Consignee, Cargo, VesselDetails
 
 def parseData(data):
     bill = billOfLading.objects.create(billOfLadingNumber = data["billOfLadingNumber"], termsOfDelivery = data["termsOfDelivery"], \
@@ -18,4 +18,4 @@ def parseData(data):
     bill.save()
 
 def hashData(data):
-    
+    pass

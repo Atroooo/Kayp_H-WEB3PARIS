@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
 
-from .viewUtils import getClient, getContractList
+from .viewUtils.viewUtils import getClient, getContractList
 from .contractUtils import parseData, deployContract
 
 # Create your views here.
