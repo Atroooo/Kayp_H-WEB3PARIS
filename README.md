@@ -28,7 +28,7 @@ This using the following stack:
 
 | Pages                                                                       | Specifications              |
 |:----------------------------------------------------------------------------|:----------------------------|
-| [Login](https://localhost:5173/login)                                       | Login page                  |
+| [Login](https://localhost:5173/log-in)                                      | Login page                  |
 | [Dashboard](https://localhost:5173/)              | Dashboard                   |
 | [Create eBL](https://localhost:5173/bol/create)    | Create a new eBL            |
 | [List eBL](https://localhost:5173/bol/list) | List and manage all the eBL |
@@ -39,9 +39,8 @@ To ensure flawless security, all documents are hashed (encrypted in an irreversi
 Upon deployment, the main contract initiates a map linking an ID to the corresponding contract address.
 When calling the main smart contract, we check if we already know the ID of the bill of lading.
 
--If it is not recognized, then it is a new document, and the main smart contract called `Deployer` creates a new smart contract that will store the document's hash.
-
--If it is recognized, then it is a modification of an existing bill of lading. We find the document's smart contract to replace the old hash with the new one.
+- If it is not recognized, then it is a new document, and the main smart contract called `Deployer` creates a new smart contract that will store the document's hash.
+- If it is recognized, then it is a modification of an existing bill of lading. We find the document's smart contract to replace the old hash with the new one.
 
 Each bill of lading has a smart contract that stores its hashed information in the blockchain. They are stored in two ways.
 First, the entire document is hashed and store with this setter:
