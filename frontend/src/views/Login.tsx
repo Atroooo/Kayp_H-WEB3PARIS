@@ -2,6 +2,7 @@ import { CardHeader, CardContent, Card } from "@/components/ui/card";
 
 import { handleLoginFormSubmit } from "@/services/loginService";
 import LoginForm, { LoginFormValues } from "@/components/LoginForm/LoginForm";
+import { isConnectedStore, IsConnectedStoreInterface } from "@/App";
 
 function LoginComponentHeader() {
     return (
@@ -12,8 +13,10 @@ function LoginComponentHeader() {
 }
 
 function LoginComponentContent() {
+    const { setIsConnected } = isConnectedStore() as IsConnectedStoreInterface;
+
     const handleLogin = (data: LoginFormValues) => {
-        handleLoginFormSubmit(data);
+        handleLoginFormSubmit(data, setIsConnected);
         console.log(data);
     };
 

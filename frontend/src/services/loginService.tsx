@@ -15,7 +15,11 @@ async function getCsrfToken(): Promise<string> {
         });
 }
 
-async function login(email: string, password: string): Promise<void> {
+async function login(
+    email: string,
+    password: string,
+    setIsConnected: (connectingState: boolean) => void
+): Promise<void> {
     const csrfToken = await getCsrfToken();
 
     await fetch("http://localhost:8000/authentication/login/", {
@@ -31,8 +35,8 @@ async function login(email: string, password: string): Promise<void> {
         }),
     })
         .then((response) => response.json())
-        .then((data) => {
-            console.log(data);
+        .then(() => {
+            setIsConnected(true);
             return;
         })
         .catch((error) => {
@@ -40,9 +44,12 @@ async function login(email: string, password: string): Promise<void> {
         });
 }
 
-export function handleLoginFormSubmit(data: LoginFormValues): void {
+export function handleLoginFormSubmit(
+    data: LoginFormValues,
+    setIsConnected: (connectingState: boolean) => void
+): void {
     if (!data.email || !data.password) {
         return;
     }
-    login(data.email, data.password);
+    login(data.email, data.password, setIsConnected);
 }
