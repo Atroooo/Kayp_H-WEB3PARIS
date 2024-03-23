@@ -21,7 +21,7 @@ class manageContract(View):
             deployContract.fillContract(contractHash, mainHash, hashedData)
         else:
             contractHash = deployContract.deployContract(bill)
-            deployContract.fillContract(contractHash, mainHash, hashedData)
+            deployContract.fillContract(contractHash, bill.billOfLadingNumber, mainHash, hashedData)
 
         return JsonResponse({"message": "success"}, status = 200)
 
