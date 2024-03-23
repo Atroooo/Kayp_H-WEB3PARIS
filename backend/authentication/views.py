@@ -10,6 +10,7 @@ from django.views.decorators.http import require_http_methods
 import json
 from .tokens import account_activation_token
 from .tasks import delete_account_if_not_activate
+from django.contrib.auth.decorators import login_required
 from .viewsUtils import (
     send_activate_email,
 )
@@ -127,7 +128,10 @@ def logout_user(request):
 #     user.save()
 #     return JsonResponse({"status": "success"}, status=200)
 
-
+@require_http_methods(["GET"])
+@login_required
+def is_user_connected(request):
+    return JsonResponse({"status": "success"}, status=200)
 # CSRF
 @require_http_methods(["GET"])
 @ensure_csrf_cookie

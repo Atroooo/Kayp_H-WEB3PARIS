@@ -3,23 +3,15 @@ import ProtectedRoute from "@/hooks/ProtectedRoute.tsx";
 import Sidebar2 from "@/components/Sidebar.tsx";
 import Login from "./views/Login";
 
-import { create } from "zustand";
 import { BolCreate } from "@/views/BolCreate.tsx";
-
-export interface IsConnectedStoreInterface {
-    isConnected: boolean;
-    setIsConnected: (connectingState: boolean) => void;
-}
-
-export const isConnectedStore = create((set) => ({
-    isConnected: true,
-    setIsConnected: (connectingState: boolean) =>
-        set({ isConnected: connectingState }),
-}));
+import {
+    isConnectedStore,
+    IsConnectedStoreInterface,
+} from "./hooks/isConnected";
+import { ListOfDocuments } from "./views/ListOfDocuments";
 
 function App() {
     const { isConnected } = isConnectedStore() as IsConnectedStoreInterface;
-    console.log("isConnected: " + isConnected);
 
     const loginFallback = "/log-in";
     return (
@@ -72,8 +64,8 @@ function App() {
                                     isAllowed={isConnected}
                                     redirectPath={loginFallback}
                                 >
-                                    <Sidebar2 />
-                                    <div>List of documents</div>
+                                    {/* <Sidebar2 /> */}
+                                    <ListOfDocuments />
                                 </ProtectedRoute>
                             }
                         ></Route>
