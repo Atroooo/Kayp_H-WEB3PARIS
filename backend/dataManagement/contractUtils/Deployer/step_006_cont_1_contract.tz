@@ -1,0 +1,35 @@
+parameter (or (bytes %storeHash) (map %storePartHashes string bytes));
+storage   (pair (nat %id) (pair (map %stored_part_hashes string bytes) (bytes %stored_whole_hash)));
+code
+  {
+    UNPAIR;     # @parameter : @storage
+    IF_LEFT
+      {
+        # == storeHash ==
+        # self.data.stored_whole_hash = whole_hash # @parameter%storeHash : @storage
+        UPDATE 4;   # @storage
+      }
+      {
+        # == storePartHashes ==
+        # for item in part_hashes.items(): # @parameter%storePartHashes : @storage
+        DUP;        # @parameter%storePartHashes : @parameter%storePartHashes : @storage
+        ITER
+          {
+            # self.data.stored_part_hashes[item.key] = item.value # pair string bytes : @parameter%storePartHashes : @storage
+            DIG 2;      # @storage : pair string bytes : @parameter%storePartHashes
+            DUP;        # @storage : @storage : pair string bytes : @parameter%storePartHashes
+            GET 3;      # map string bytes : @storage : pair string bytes : @parameter%storePartHashes
+            DUP 3;      # pair string bytes : map string bytes : @storage : pair string bytes : @parameter%storePartHashes
+            CDR;        # bytes : map string bytes : @storage : pair string bytes : @parameter%storePartHashes
+            SOME;       # option bytes : map string bytes : @storage : pair string bytes : @parameter%storePartHashes
+            DIG 3;      # pair string bytes : option bytes : map string bytes : @storage : @parameter%storePartHashes
+            CAR;        # string : option bytes : map string bytes : @storage : @parameter%storePartHashes
+            UPDATE;     # map string bytes : @storage : @parameter%storePartHashes
+            UPDATE 3;   # @storage : @parameter%storePartHashes
+            SWAP;       # @parameter%storePartHashes : @storage
+          }; # @parameter%storePartHashes : @storage
+        DROP;       # @storage
+      }; # @storage
+    NIL operation; # list operation : @storage
+    PAIR;       # pair (list operation) @storage
+  };
