@@ -12,7 +12,7 @@ export function PageLayout({ children, title, description }: { children: React.R
                 <CardTitle>{title}</CardTitle>
                 <CardDescription>{description}</CardDescription>
             </CardHeader>
-            <div className={"pl-10 pr-10 gap-10 flex flex-col"}>
+            <div className={"pl-5 pr-5 gap-1 flex flex-col"}>
                 {children}
             </div>
         </Card>

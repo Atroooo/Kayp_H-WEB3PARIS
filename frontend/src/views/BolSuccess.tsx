@@ -23,8 +23,9 @@ export const BolSuccess = () => {
                 tweenDuration={5000}
             />
             <PageLayout title={"Your eBL is on chain !"} description={"Bravo !"}>
+                <div className={"flex flex-col gap-5"}>
                     <StepperDemo/>
-                    <MapContainer className={"w-[1600px] h-[300px] z-0"} center={[25, 0]} zoom={1} scrollWheelZoom={false}>
+                    <MapContainer className={"w-[1650px] h-[300px] z-0"} center={[25, 0]} zoom={1} scrollWheelZoom={false}>
                         <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -52,6 +53,8 @@ export const BolSuccess = () => {
                             </div>
                         </CardContent>
                     </Card>
+
+                </div>
             </PageLayout>
         </>
     );

@@ -2,10 +2,11 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import ProtectedRoute from "@/hooks/ProtectedRoute.tsx";
 import Sidebar2 from "@/components/Sidebar.tsx";
 import Login from "./views/Login";
-
 import { BolCreate } from "@/views/BolCreate.tsx";
 import {Layout} from "@/components/custom/Layout.tsx";
 import {BolSuccess} from "@/views/BolSuccess.tsx";
+import { ListOfDocuments } from "./views/ListOfDocuments";
+import {create} from "zustand";
 
 export interface IsConnectedStoreInterface {
     isConnected: boolean;
@@ -17,11 +18,6 @@ export const isConnectedStore = create((set) => ({
     setIsConnected: (connectingState: boolean) =>
         set({ isConnected: connectingState }),
 }));
-import {
-    isConnectedStore,
-    IsConnectedStoreInterface,
-} from "./hooks/isConnected";
-import { ListOfDocuments } from "./views/ListOfDocuments";
 
 function App() {
     const { isConnected } = isConnectedStore() as IsConnectedStoreInterface;
@@ -94,8 +90,10 @@ function App() {
                                     isAllowed={isConnected}
                                     redirectPath={loginFallback}
                                 >
-                                    <Sidebar2 />
-                                    <ListOfDocuments />
+                                    <Layout className={'flex-row gap-2'}>
+                                        <Sidebar2 />
+                                        <ListOfDocuments />
+                                    </Layout>
                                 </ProtectedRoute>
                             }
                         ></Route>
