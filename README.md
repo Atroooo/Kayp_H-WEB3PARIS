@@ -1,17 +1,44 @@
-# Implémentation blockchain
-Pour assurer une sécurité sans faille, tous les documents sont hashés (cryptés de manière irréversible), et les hashs sont envoyés sur la blockchain. Chaque bill of lading possède un ID et un smart contract distincts.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/9113740/201498864-2a900c64-d88f-4ed4-b5cf-770bcb57e1f5.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/9113740/201498152-b171abb8-9225-487a-821c-6ff49ee48579.png">
+</picture>
 
-Lors de son déploiement, le contrat principal initie une map liant un ID à l'adresse du contrat correspondant.
-![carbon(1)](https://github.com/Atroooo/BPELO/assets/117669219/e41105d6-1864-4e96-80c9-d3d508fdbc66)
+<div align="center"><strong>Next.js 14 Admin Dashboard Starter Template With Shadcn-ui</strong></div>
+<div align="center">Built with the Next.js App Router</div>
+<br />
+<div align="center">
+<a href="https://next-shadcn-dashboard-starter.vercel.app">View Demo</a>
+<span>
+</div>
 
-Lors de l'appel au smart contract principal, nous vérifions si nous connaissons déjà l'ID du bill of lading.
-![carbon(4)](https://github.com/Atroooo/BPELO/assets/117669219/9de987ef-d715-4df6-9f6f-8870a2aa0953)
+## Front-end
 
--Si il n'est pas reconnu, alors c'est un nouveau document et le smart contract principal appelé 'Deployer' créé un nouveau smart contract qui va stocker le hash du document.
-![carbon(3)](https://github.com/Atroooo/BPELO/assets/117669219/4ab10720-ef74-4efa-a2a0-b0ced7f79bfd)
+This using the following stack:
 
--Si il est reconnu, alors c'est une modification d'un bill of lading déjà existant. On retrouve le smart contract du document pour modifier l'ancien hash par le nouveau.
-![carbon(5)](https://github.com/Atroooo/BPELO/assets/117669219/edc89b75-f246-4630-ab00-af4b7aef6f38)
+- Language - [TypeScript](https://www.typescriptlang.org)
+- Styling - [Tailwind CSS](https://tailwindcss.com)
+- Components - [Shadcn-ui](https://ui.shadcn.com)
+- Schema Validations - [Zod](https://zod.dev)
+- State Management - [Zustand](https://zustand-demo.pmnd.rs)
+- Forms - [React Hook Form](https://ui.shadcn.com/docs/components/form)
+- Linting - [ESLint](https://eslint.org)
+- Formatting - [Prettier](https://prettier.io)
 
-Chaque bill of lading dispose d'un smart contract stockant dans la blockchain ses informations hashées.
-![carbon(7)](https://github.com/Atroooo/BPELO/assets/117669219/32c96232-e627-491f-a33b-47fc44354fe1)
+## Pages
+
+| Pages                                                                       | Specifications              |
+|:----------------------------------------------------------------------------|:----------------------------|
+| [Login](https://localhost:5173/login)                                       | Login page                  |
+| [Dashboard](https://localhost:5173/)              | Dashboard                   |
+| [Create eBL](https://localhost:5173/bol/create)    | Create a new eBL            |
+| [List eBL](https://localhost:5173/bol/list) | List and manage all the eBl |
+
+## Getting Started
+
+Follow these steps to clone the repository and start the development server:
+
+- `git clone https://github.com/Atroooo/BPELO.git`
+- `npm install`
+- `npm run dev`
+
+You should now be able to access the application at http://localhost:5173.
