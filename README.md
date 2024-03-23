@@ -45,4 +45,9 @@ When calling the main smart contract, we check if we already know the ID of the 
 Each bill of lading has a smart contract that stores its hashed information in the blockchain. They are stored in two ways.
 First, the entire document is hashed and store with this setter.
 Then, the document is stored part by part with each part of the document hashed then store in a map. This method allows independent verification of each part of the document:
-![carbon(9)](https://github.com/Atroooo/BPELO/assets/117669219/1c49017c-f87a-4ce6-b298-b95689eda5ab)
+```
+        @sp.entrypoint
+        def storePartHashes(self, part_hashes):
+            for item in part_hashes.items():
+                self.data.stored_part_hashes[item.key] = item.value
+```
