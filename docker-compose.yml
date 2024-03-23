@@ -1,7 +1,7 @@
 version: "3.8"
 
 networks:
-    transcendence_network:
+    network:
         driver: bridge
 
 services:
@@ -13,6 +13,8 @@ services:
         working_dir: /usr/src/app
         ports:
             - "3000:3000"
+        networks:
+            - network
 
     backend:
         build:
@@ -26,7 +28,4 @@ services:
         image: backend
         restart: always
         networks:
-            - transcendence_network
-
-
-
+            - network
