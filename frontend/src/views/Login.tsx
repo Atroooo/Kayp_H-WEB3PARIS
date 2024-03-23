@@ -2,7 +2,10 @@ import { CardHeader, CardContent, Card } from "@/components/ui/card";
 
 import { handleLoginFormSubmit } from "@/services/loginService";
 import LoginForm, { LoginFormValues } from "@/components/LoginForm/LoginForm";
-import { isConnectedStore, IsConnectedStoreInterface } from "@/App";
+import {
+    isConnectedStore,
+    IsConnectedStoreInterface,
+} from "@/hooks/isConnected";
 
 function LoginComponentHeader() {
     return (
@@ -29,7 +32,10 @@ function LoginComponentContent() {
 
 export default function Login() {
     return (
-        <div className="flex justify-center items-center h-screen">
+        <div
+            className="flex justify-center items-center h-screen "
+            style={{ backgroundImage: `url(bg.webp)` }}
+        >
             <Card className="max-w-sm">
                 <LoginComponentHeader />
                 <LoginComponentContent />
