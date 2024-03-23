@@ -1,5 +1,5 @@
-parameter (pair %CreateContract (nat %id) (bytes %new_hash));
-storage   (big_map nat address);
+parameter (pair %CreateContract (nat %id) (pair (map %part_hashes string bytes) (bytes %whole_hash)));
+storage   (map nat address);
 code
   {
     UNPAIR;     # @parameter : @storage
@@ -18,46 +18,88 @@ code
         GET;        # option address : @parameter : @storage
         IF_NONE
           {
-            PUSH int 24; # int : @parameter : @storage
+            PUSH int 33; # int : @parameter : @storage
             FAILWITH;   # FAILED
           }
           {}; # @some : @parameter : @storage
-        # contract_instance = sp.contract(sp.bytes, old_contract_address, "storeHash").unwrap_some(error="Didn't find contract") # @some : @parameter : @storage
-        CONTRACT %storeHash bytes; # option (contract bytes) : @parameter : @storage
+        # contract_instance_whole = sp.contract( # @some : @parameter : @storage
+        DUP;        # @some : @some : @parameter : @storage
+        CONTRACT %storeHash bytes; # option (contract bytes) : @some : @parameter : @storage
         IF_NONE
           {
-            PUSH string "Didn't find contract"; # string : @parameter : @storage
+            PUSH string "Didn't find contract"; # string : @some : @parameter : @storage
             FAILWITH;   # FAILED
           }
-          {}; # @some : @parameter : @storage
-        # sp.transfer(new_hash, sp.tez(0), contract_instance) # @some : @parameter : @storage
-        NIL operation; # list operation : @some : @parameter : @storage
+          {}; # @some : @some : @parameter : @storage
+        # sp.transfer( # @some : @some : @parameter : @storage
+        NIL operation; # list operation : @some : @some : @parameter : @storage
+        SWAP;       # @some : list operation : @some : @parameter : @storage
+        PUSH mutez 0; # mutez : @some : list operation : @some : @parameter : @storage
+        DUP 5;      # @parameter : mutez : @some : list operation : @some : @parameter : @storage
+        GET 4;      # bytes : mutez : @some : list operation : @some : @parameter : @storage
+        TRANSFER_TOKENS; # operation : list operation : @some : @parameter : @storage
+        CONS;       # list operation : @some : @parameter : @storage
         SWAP;       # @some : list operation : @parameter : @storage
+        # contract_instance_part = sp.contract( # @some : list operation : @parameter : @storage
+        CONTRACT %storePartHashes (map string bytes); # option (contract (map string bytes)) : list operation : @parameter : @storage
+        IF_NONE
+          {
+            PUSH string "Didn't find contract"; # string : list operation : @parameter : @storage
+            FAILWITH;   # FAILED
+          }
+          {}; # @some : list operation : @parameter : @storage
+        # sp.transfer( # @some : list operation : @parameter : @storage
         PUSH mutez 0; # mutez : @some : list operation : @parameter : @storage
         DIG 3;      # @parameter : mutez : @some : list operation : @storage
-        CDR;        # bytes : mutez : @some : list operation : @storage
+        GET 3;      # map string bytes : mutez : @some : list operation : @storage
         TRANSFER_TOKENS; # operation : list operation : @storage
         CONS;       # list operation : @storage
       }
       {
-        # new_contract_address = sp.create_contract(HashStorage, # @parameter : @storage
+        # new_contract_address = sp.create_contract( # @parameter : @storage
         NIL operation; # list operation : @parameter : @storage
         DUP 2;      # @parameter : list operation : @parameter : @storage
-        CDR;        # bytes : list operation : @parameter : @storage
+        GET 4;      # bytes : list operation : @parameter : @storage
         DUP 3;      # @parameter : bytes : list operation : @parameter : @storage
-        CAR;        # nat : bytes : list operation : @parameter : @storage
-        PAIR;       # pair nat bytes : list operation : @parameter : @storage
-        PUSH mutez 0; # mutez : pair nat bytes : list operation : @parameter : @storage
-        NONE key_hash; # option key_hash : mutez : pair nat bytes : list operation : @parameter : @storage
+        GET 3;      # map string bytes : bytes : list operation : @parameter : @storage
+        DUP 4;      # @parameter : map string bytes : bytes : list operation : @parameter : @storage
+        CAR;        # nat : map string bytes : bytes : list operation : @parameter : @storage
+        PAIR 3;     # pair nat (pair (map string bytes) bytes) : list operation : @parameter : @storage
+        PUSH mutez 0; # mutez : pair nat (pair (map string bytes) bytes) : list operation : @parameter : @storage
+        NONE key_hash; # option key_hash : mutez : pair nat (pair (map string bytes) bytes) : list operation : @parameter : @storage
         CREATE_CONTRACT
-         { parameter (bytes %storeHash);
-           storage   (pair (nat %id) (bytes %stored_hash));
+         { parameter (or (bytes %storeHash) (map %storePartHashes string bytes));
+           storage   (pair (nat %id) (pair (map %stored_part_hashes string bytes) (bytes %stored_whole_hash)));
            code
              {
                UNPAIR;     # @parameter : @storage
-               # == storeHash ==
-               # self.data.stored_hash = new_hash # @parameter : @storage
-               UPDATE 2;   # @storage
+               IF_LEFT
+                 {
+                   # == storeHash ==
+                   # self.data.stored_whole_hash = whole_hash # @parameter%storeHash : @storage
+                   UPDATE 4;   # @storage
+                 }
+                 {
+                   # == storePartHashes ==
+                   # for item in part_hashes.items(): # @parameter%storePartHashes : @storage
+                   DUP;        # @parameter%storePartHashes : @parameter%storePartHashes : @storage
+                   ITER
+                     {
+                       # self.data.stored_part_hashes[item.key] = item.value # pair string bytes : @parameter%storePartHashes : @storage
+                       DIG 2;      # @storage : pair string bytes : @parameter%storePartHashes
+                       DUP;        # @storage : @storage : pair string bytes : @parameter%storePartHashes
+                       GET 3;      # map string bytes : @storage : pair string bytes : @parameter%storePartHashes
+                       DUP 3;      # pair string bytes : map string bytes : @storage : pair string bytes : @parameter%storePartHashes
+                       CDR;        # bytes : map string bytes : @storage : pair string bytes : @parameter%storePartHashes
+                       SOME;       # option bytes : map string bytes : @storage : pair string bytes : @parameter%storePartHashes
+                       DIG 3;      # pair string bytes : option bytes : map string bytes : @storage : @parameter%storePartHashes
+                       CAR;        # string : option bytes : map string bytes : @storage : @parameter%storePartHashes
+                       UPDATE;     # map string bytes : @storage : @parameter%storePartHashes
+                       UPDATE 3;   # @storage : @parameter%storePartHashes
+                       SWAP;       # @parameter%storePartHashes : @storage
+                     }; # @parameter%storePartHashes : @storage
+                   DROP;       # @storage
+                 }; # @storage
                NIL operation; # list operation : @storage
                PAIR;       # pair (list operation) @storage
              };
@@ -72,8 +114,14 @@ code
         SOME;       # option address : @storage : list operation : @parameter
         DIG 3;      # @parameter : option address : @storage : list operation
         CAR;        # nat : option address : @storage : list operation
-        UPDATE;     # big_map nat address : list operation
-        SWAP;       # list operation : big_map nat address
-      }; # list operation : big_map nat address
-    PAIR;       # pair (list operation) (big_map nat address)
+        UPDATE;     # map nat address : list operation
+        SWAP;       # list operation : map nat address
+      }; # list operation : map nat address
+    NIL operation; # list operation : list operation : map nat address
+    SWAP;       # list operation : list operation : map nat address
+    ITER
+      {
+        CONS;       # list operation : map nat address
+      }; # list operation : map nat address
+    PAIR;       # pair (list operation) (map nat address)
   };

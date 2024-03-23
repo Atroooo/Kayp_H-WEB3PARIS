@@ -16,3 +16,6 @@ def parseData(data):
     bill.vesselDetails.set(VesselDetails.objects.create(name = vesselDetailsData["name"], loadingPort = vesselDetailsData["loadingPort"], destinationPort = vesselDetailsData["destinationPort"], dateOfLoading = vesselDetailsData["dateOfLoading"]))
 
     bill.save()
+
+def hashData(data):
+    
