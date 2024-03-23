@@ -33,4 +33,4 @@ class BillOfLading(models.Model):
     vesselDetails = models.ForeignKey(VesselDetails, on_delete=models.CASCADE, blank=True, null=True)
     carrierSignature = models.CharField(max_length = 2000, default = "default")
     specialInstructions = models.CharField(max_length = 2000, default = "default")
-    contractHash = models.CharField(max_length = 100, default = "default")
+    contractAddress = models.CharField(max_length = 100, default = "default")
