@@ -1,4 +1,4 @@
-import { LoginFormValues } from "@/components/LoginForm/LoginForm";
+import { LoginFormValues } from "@/components/loginform/LoginForm";
 
 async function getCsrfToken(): Promise<string> {
     return fetch("http://localhost:8000/authentication/get-csrf-token/", {

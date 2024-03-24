@@ -1,6 +1,6 @@
 import Confetti from 'react-confetti'
 import useWindowSize from 'react-use/lib/useWindowSize'
-import {PageLayout} from "@/components/Bol/PageLayout.tsx";
+import {PageLayout} from "@/components/layout/PageLayout.tsx";
 import {MapContainer} from "react-leaflet/MapContainer";
 import {TileLayer} from "react-leaflet/TileLayer";
 import {Marker} from "react-leaflet";
@@ -47,8 +47,10 @@ export const BolSuccess = () => {
                                 </Button>
 
                                 <Button className={"gap-1.5"}>
-                                    <Book />
-                                    On chain proof
+                                    <Book/>
+                                    <a href="https://ghostnet.tzkt.io/KT1MvGPyXNvNNwEAc286Xtw9Xgv5B5vBFHg3/operations/" target="_blank">
+                                        On chain proof (Ghostnet)
+                                    </a>
                                 </Button>
                             </div>
                         </CardContent>
