@@ -6,6 +6,7 @@
 Follow these steps to clone the repository and start the development server:
 
 - `git clone https://github.com/Atroooo/BPELO.git`
+- `cd frontend`
 - `npm install`
 - `npm run dev`
 
