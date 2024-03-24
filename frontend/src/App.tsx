@@ -3,21 +3,13 @@ import ProtectedRoute from "@/hooks/ProtectedRoute.tsx";
 import Sidebar2 from "@/components/Sidebar.tsx";
 import Login from "./views/Login";
 import { BolCreate } from "@/views/BolCreate.tsx";
-import {Layout} from "@/components/custom/Layout.tsx";
-import {BolSuccess} from "@/views/BolSuccess.tsx";
+import { Layout } from "@/components/custom/Layout.tsx";
+import { BolSuccess } from "@/views/BolSuccess.tsx";
 import { ListOfDocuments } from "./views/ListOfDocuments";
-import {create} from "zustand";
-
-export interface IsConnectedStoreInterface {
-    isConnected: boolean;
-    setIsConnected: (connectingState: boolean) => void;
-}
-
-export const isConnectedStore = create((set) => ({
-    isConnected: true,
-    setIsConnected: (connectingState: boolean) =>
-        set({ isConnected: connectingState }),
-}));
+import {
+    isConnectedStore,
+    IsConnectedStoreInterface,
+} from "./hooks/isConnected";
 
 function App() {
     const { isConnected } = isConnectedStore() as IsConnectedStoreInterface;
@@ -25,63 +17,63 @@ function App() {
     const loginFallback = "/log-in";
     return (
         <>
-                <BrowserRouter>
-                    <Routes>
+            <BrowserRouter>
+                <Routes>
+                    <Route
+                        path={loginFallback}
+                        element={
+                            <ProtectedRoute
+                                isAllowed={!isConnected}
+                                redirectPath={"/"}
+                            >
+                                <Login />
+                            </ProtectedRoute>
+                        }
+                    ></Route>
+
+                    <Route>
                         <Route
-                            path={loginFallback}
+                            path="/"
                             element={
                                 <ProtectedRoute
-                                    isAllowed={!isConnected}
-                                    redirectPath={"/"}
+                                    isAllowed={isConnected}
+                                    redirectPath={loginFallback}
                                 >
-                                    <Login />
+                                    <Sidebar2 />
+                                    <div>Dashboard</div>
                                 </ProtectedRoute>
                             }
                         ></Route>
 
-                        <Route>
-                            <Route
-                                path="/"
-                                element={
-                                    <ProtectedRoute
-                                        isAllowed={isConnected}
-                                        redirectPath={loginFallback}
-                                    >
+                        <Route
+                            path="/bol/create"
+                            element={
+                                <ProtectedRoute
+                                    isAllowed={isConnected}
+                                    redirectPath={loginFallback}
+                                >
+                                    <Layout className={"flex-row gap-2"}>
                                         <Sidebar2 />
-                                        <div>Dashboard</div>
-                                    </ProtectedRoute>
-                                }
-                            ></Route>
+                                        <BolCreate />
+                                    </Layout>
+                                </ProtectedRoute>
+                            }
+                        ></Route>
 
-                            <Route
-                                path="/bol/create"
-                                element={
-                                    <ProtectedRoute
-                                        isAllowed={isConnected}
-                                        redirectPath={loginFallback}
-                                    >
-                                        <Layout className={'flex-row gap-2'}>
-                                            <Sidebar2 />
-                                            <BolCreate />
-                                        </Layout>
-                                    </ProtectedRoute>
-                                }
-                            ></Route>
-
-                            <Route
-                                path="/bol/success"
-                                element={
-                                    <ProtectedRoute
-                                        isAllowed={isConnected}
-                                        redirectPath={loginFallback}
-                                    >
-                                        <Layout className={'flex-row gap-2'}>
-                                            <Sidebar2 />
-                                            <BolSuccess />
-                                        </Layout>
-                                    </ProtectedRoute>
-                                }
-                            ></Route>
+                        <Route
+                            path="/bol/success"
+                            element={
+                                <ProtectedRoute
+                                    isAllowed={isConnected}
+                                    redirectPath={loginFallback}
+                                >
+                                    <Layout className={"flex-row gap-2"}>
+                                        <Sidebar2 />
+                                        <BolSuccess />
+                                    </Layout>
+                                </ProtectedRoute>
+                            }
+                        ></Route>
 
                         <Route
                             path="/bol/list"
@@ -90,7 +82,7 @@ function App() {
                                     isAllowed={isConnected}
                                     redirectPath={loginFallback}
                                 >
-                                    <Layout className={'flex-row gap-2'}>
+                                    <Layout className={"flex-row gap-2"}>
                                         <Sidebar2 />
                                         <ListOfDocuments />
                                     </Layout>
@@ -98,60 +90,60 @@ function App() {
                             }
                         ></Route>
 
-                            <Route
-                                path="/bol/draft"
-                                element={
-                                    <ProtectedRoute
-                                        isAllowed={isConnected}
-                                        redirectPath={loginFallback}
-                                    >
-                                        <Sidebar2 />
-                                        <div>Draft</div>
-                                    </ProtectedRoute>
-                                }
-                            ></Route>
+                        <Route
+                            path="/bol/draft"
+                            element={
+                                <ProtectedRoute
+                                    isAllowed={isConnected}
+                                    redirectPath={loginFallback}
+                                >
+                                    <Sidebar2 />
+                                    <div>Draft</div>
+                                </ProtectedRoute>
+                            }
+                        ></Route>
 
-                            <Route
-                                path="/activity/notifications"
-                                element={
-                                    <ProtectedRoute
-                                        isAllowed={isConnected}
-                                        redirectPath={loginFallback}
-                                    >
-                                        <Sidebar2 />
-                                        <div>Notifications</div>
-                                    </ProtectedRoute>
-                                }
-                            ></Route>
+                        <Route
+                            path="/activity/notifications"
+                            element={
+                                <ProtectedRoute
+                                    isAllowed={isConnected}
+                                    redirectPath={loginFallback}
+                                >
+                                    <Sidebar2 />
+                                    <div>Notifications</div>
+                                </ProtectedRoute>
+                            }
+                        ></Route>
 
-                            <Route
-                                path="/activity/history"
-                                element={
-                                    <ProtectedRoute
-                                        isAllowed={isConnected}
-                                        redirectPath={loginFallback}
-                                    >
-                                        <Sidebar2 />
-                                        <div>History</div>
-                                    </ProtectedRoute>
-                                }
-                            ></Route>
+                        <Route
+                            path="/activity/history"
+                            element={
+                                <ProtectedRoute
+                                    isAllowed={isConnected}
+                                    redirectPath={loginFallback}
+                                >
+                                    <Sidebar2 />
+                                    <div>History</div>
+                                </ProtectedRoute>
+                            }
+                        ></Route>
 
-                            <Route
-                                path="/settings"
-                                element={
-                                    <ProtectedRoute
-                                        isAllowed={isConnected}
-                                        redirectPath={loginFallback}
-                                    >
-                                        <Sidebar2 />
-                                        <div>Settings</div>
-                                    </ProtectedRoute>
-                                }
-                            ></Route>
-                        </Route>
-                    </Routes>
-                </BrowserRouter>
+                        <Route
+                            path="/settings"
+                            element={
+                                <ProtectedRoute
+                                    isAllowed={isConnected}
+                                    redirectPath={loginFallback}
+                                >
+                                    <Sidebar2 />
+                                    <div>Settings</div>
+                                </ProtectedRoute>
+                            }
+                        ></Route>
+                    </Route>
+                </Routes>
+            </BrowserRouter>
         </>
     );
 }

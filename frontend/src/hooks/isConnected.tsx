@@ -5,13 +5,8 @@ export interface IsConnectedStoreInterface {
     setIsConnected: (connectingState: boolean) => void;
 }
 
-export interface isConnectedSStoreInterface {
-    isConnectedS: boolean;
-    setIsConnectedS: (value: boolean) => void;
-}
-
 export const isConnectedStore = create((set) => ({
-    isConnected: "bg-white",
-    setIsConnected: (connectionStatus: string) =>
-        set({ isConnected: connectionStatus }),
+    isConnected: false,
+    setIsConnected: (connectingState: string) =>
+        set({ isConnected: connectingState }),
 }));

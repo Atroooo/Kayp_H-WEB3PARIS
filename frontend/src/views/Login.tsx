@@ -20,7 +20,6 @@ function LoginComponentContent() {
 
     const handleLogin = (data: LoginFormValues) => {
         handleLoginFormSubmit(data, setIsConnected);
-        console.log(data);
     };
 
     return (

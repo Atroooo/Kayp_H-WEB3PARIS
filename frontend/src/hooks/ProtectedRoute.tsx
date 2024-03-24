@@ -1,11 +1,14 @@
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoute = ({
-                            isAllowed,
-                            redirectPath = '/',
-                            children,
-                        }: { isAllowed: boolean, redirectPath: string, children: React.ReactElement[] | React.ReactElement}) => {
-    console.log("try to access to route :" + isAllowed);
+    isAllowed,
+    redirectPath = "/",
+    children,
+}: {
+    isAllowed: boolean;
+    redirectPath: string;
+    children: React.ReactElement[] | React.ReactElement;
+}) => {
     if (!isAllowed) {
         return <Navigate to={redirectPath} replace />;
     }
