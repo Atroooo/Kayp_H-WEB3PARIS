@@ -34,12 +34,14 @@ This using the following stack:
 
 ## Pages
 
-| Pages                                                                       | Specifications              |
-|:----------------------------------------------------------------------------|:----------------------------|
-| [Login](https://localhost:5173/log-in)                                      | Login page                  |
-| [Dashboard](https://localhost:5173/)              | Dashboard                   |
-| [Create eBL](https://localhost:5173/bol/create)    | Create a new eBL            |
-| [List eBL](https://localhost:5173/bol/list) | List and manage all the eBL |
+| Pages                                                                       | Specifications              | Preview
+|:----------------------------------------------------------------------------|:----------------------------|---------------------------
+| [Login](https://localhost:5173/log-in)                                      | Login page                  | ![image](https://github.com/Atroooo/BPELO/assets/76119301/cbf9f17e-e0a2-463b-b8cd-c1328db440a8)     |
+| [Dashboard](https://localhost:5173/)              | Dashboard                   |		            |													  |
+| [Create eBL](https://localhost:5173/bol/create)    | Create a new eBL            |			    | ![createEBL](https://github.com/Atroooo/BPELO/assets/76119301/f7840526-9b9c-47ac-8d55-079fccfb1cc1) |
+| [List eBL](https://localhost:5173/bol/list) | List and manage all the eBL |				    | ![image](https://github.com/Atroooo/BPELO/assets/76119301/0fdccba2-b96f-4c16-93d4-927bf1d33589)
+| 
+
 
 # Blockchain Implementation
 To ensure flawless security, all documents are hashed (encrypted in an irreversible manner), and the hashes are sent to the blockchain. Each bill of lading has a unique ID and a distinct smart contract.
