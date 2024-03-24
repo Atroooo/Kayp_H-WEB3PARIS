@@ -67,10 +67,7 @@ def storePartHashes(self, part_hashes):
 		self.data.stored_part_hashes[item.key] = item.value
 ```
 
-### Link of the smart contract
-`
-https://ghostnet.tzkt.io/KT1QJ3W5d6TidAzFanLJEn4z9WKUPVcTZj1H/storage/
-`
+### [Smart contract link](https://ghostnet.tzkt.io/KT1QJ3W5d6TidAzFanLJEn4z9WKUPVcTZj1H/storage/)
 
 # Backend
 User management with authentication.
