@@ -35,12 +35,12 @@ This using the following stack:
 ## Pages
 
 | Pages                                                                       | Specifications              | Preview
-|:----------------------------------------------------------------------------|:----------------------------|---------------------------
+|:----------------------------------------------------------------------------|:----------------------------|------------------------------------------------------------------------------------------------------
 | [Login](https://localhost:5173/log-in)                                      | Login page                  | ![image](https://github.com/Atroooo/BPELO/assets/76119301/cbf9f17e-e0a2-463b-b8cd-c1328db440a8)     |
-| [Dashboard](https://localhost:5173/)              | Dashboard                   |		            |													  |
-| [Create eBL](https://localhost:5173/bol/create)    | Create a new eBL            |			    | ![createEBL](https://github.com/Atroooo/BPELO/assets/76119301/f7840526-9b9c-47ac-8d55-079fccfb1cc1) |
-| [List eBL](https://localhost:5173/bol/list) | List and manage all the eBL |				    | ![image](https://github.com/Atroooo/BPELO/assets/76119301/0fdccba2-b96f-4c16-93d4-927bf1d33589)
-| 
+| [Dashboard](https://localhost:5173/)              | Dashboard                   		            |													  |
+| [Create eBL](https://localhost:5173/bol/create)    | Create a new eBL            			    | ![createEBL](https://github.com/Atroooo/BPELO/assets/76119301/f7840526-9b9c-47ac-8d55-079fccfb1cc1) |
+| [List eBL](https://localhost:5173/bol/list) | List and manage all the eBL 			    | ![Screenshot 2024-03-24 at 10 22 11](https://github.com/Atroooo/BPELO/assets/76119301/49d1a5d0-f28c-46d5-9e5c-52d1f1f4f4dd)
+
 
 
 # Blockchain Implementation
@@ -73,5 +73,13 @@ https://ghostnet.tzkt.io/KT1QJ3W5d6TidAzFanLJEn4z9WKUPVcTZj1H/storage/
 `
 
 # Backend
+User management with authentication.
 To deploy the smart contract we need to get every informations needed to create the bill of Lading. 
 In order to do that, we use the DCSA API (https://app.swaggerhub.com/apis/dcsaorg/DCSA_EBL/3.0.0-Beta-1) to standardize the documents.
+
+This using the following stack:
+
+- Language - [Python](https://www.python.org/)
+- Framework - [Django](https://www.djangoproject.com/)
+- Database - [SQLite](https://www.sqlite.org/)
+
