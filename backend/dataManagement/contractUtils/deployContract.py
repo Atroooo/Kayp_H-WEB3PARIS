@@ -76,11 +76,11 @@ def fillContract(contractAddress, contractID, mainHash, hashedData):
     builder = pytezos.contract(contractAddress)
 
     mainHash = str(mainHash).encode('utf-8')
+    
     hashedDataEncoded = dict()
     for key, value in hashedData.items():
         if (isinstance(value, dict)):
             for key2, value2 in value.items():
                 hashedDataEncoded[key2] = str(value2).encode('utf-8')
 
-    print(contractID, hashedDataEncoded, mainHash)
     opg = pytezos.bulk(builder.CreateContract(contractID, hashedDataEncoded, mainHash)).send(min_confirmations=1)
