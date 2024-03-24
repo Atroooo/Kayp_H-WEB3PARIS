@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Layout, LayoutHeader } from './custom/Layout.tsx'
+import { Layout, LayoutHeader } from '../custom/Layout.tsx'
 import Nav from './Nav.tsx'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils.ts'
 import { sidebarLinks } from '@/data/SidebarLinks.tsx'
 
 interface SidebarProps extends React.HTMLAttributes<HTMLElement> {}

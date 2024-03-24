@@ -1,7 +1,7 @@
 import { CardHeader, CardContent, Card } from "@/components/ui/card";
 
 import { handleLoginFormSubmit } from "@/services/loginService";
-import LoginForm, { LoginFormValues } from "@/components/LoginForm/LoginForm";
+import LoginForm, { LoginFormValues } from "@/components/loginform/LoginForm";
 import {
     isConnectedStore,
     IsConnectedStoreInterface,

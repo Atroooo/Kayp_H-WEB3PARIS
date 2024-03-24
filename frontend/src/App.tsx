@@ -1,6 +1,6 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import ProtectedRoute from "@/hooks/ProtectedRoute.tsx";
-import Sidebar2 from "@/components/Sidebar.tsx";
+import Sidebar2 from "@/components/navigation/Sidebar.tsx";
 import Login from "./views/Login";
 import { BolCreate } from "@/views/BolCreate.tsx";
 import { Layout } from "@/components/custom/Layout.tsx";

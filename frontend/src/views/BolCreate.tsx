@@ -1,5 +1,5 @@
-import {PageLayout} from "@/components/Bol/PageLayout.tsx";
-import {BolCreateForm} from "@/components/Bol/BolCreateForm.tsx";
+import {PageLayout} from "@/components/layout/PageLayout.tsx";
+import {BolCreateForm} from "@/components/bol/BolCreateForm.tsx";
 
 
 export const BolCreate = () => {

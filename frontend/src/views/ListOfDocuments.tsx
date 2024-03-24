@@ -1,4 +1,4 @@
-import { CardsStats } from "@/components/Charts";
+import { CardsStats } from "@/components/charts/Charts.tsx";
 import {
     Table,
     TableBody,
@@ -7,8 +7,8 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { dataListOfDocuments } from "@/services/dataListOfDocuments";
-import {PageLayout} from "@/components/Bol/PageLayout.tsx";
+import { dataListOfDocuments } from "@/data/DataListOfDocuments.tsx";
+import {PageLayout} from "@/components/layout/PageLayout.tsx";
 import {Separator} from "@/components/ui/separator.tsx";
 
 function Statistics(): JSX.Element {
