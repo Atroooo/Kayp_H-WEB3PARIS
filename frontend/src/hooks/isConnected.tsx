@@ -6,7 +6,7 @@ export interface IsConnectedStoreInterface {
 }
 
 export const isConnectedStore = create((set) => ({
-    isConnected: true,
+    isConnected: false,
     setIsConnected: (connectingState: string) =>
         set({ isConnected: connectingState }),
 }));
