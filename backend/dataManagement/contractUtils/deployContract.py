@@ -35,9 +35,6 @@ def deployContract(bill):
 
     return contract_address
 
-deployContract(None)
-
-
 def checkIfContractIsActive(billOfLadingID):
     """
     Check if the billOfLading is already existing or not

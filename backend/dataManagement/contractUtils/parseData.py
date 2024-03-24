@@ -53,7 +53,7 @@ def hash_value(value):
 
 def hashData(data):
     """
-    Hash the eBL document that will be store in the smart contract
+    Hash the eBL document that will be store in the smart contract.
 
     Parameters
     ----------

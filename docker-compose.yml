@@ -1,0 +1,20 @@
+version: "3.8"
+
+networks:
+    network:
+        driver: bridge
+
+services:
+    backend:
+        build:
+            context: .
+            dockerfile: ./docker/backend/Dockerfile
+        container_name: backend
+        volumes:
+            - ./backend:/volumeBackend
+        ports:
+            - "8000:8000"
+        image: backend
+        restart: always
+        networks:
+            - network

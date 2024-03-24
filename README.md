@@ -10,6 +10,13 @@ Follow these steps to clone the repository and start the development server:
 - `npm install`
 - `npm run dev`
 
+In an other terminal
+
+-  Go at the root of the repository
+- `pip install -r backend/requirements.txt` (python version needed <= 3.10.12)
+- `cd backend`
+- `python manage.py runserver`
+
 You should now be able to access the application at http://localhost:5173.
 
 # Front-end
@@ -57,7 +64,12 @@ def storePartHashes(self, part_hashes):
 	for item in part_hashes.items():
 		self.data.stored_part_hashes[item.key] = item.value
 ```
+
 ### Link of the smart contract
 `
 https://ghostnet.tzkt.io/KT1QJ3W5d6TidAzFanLJEn4z9WKUPVcTZj1H/storage/
 `
+
+# Backend
+To deploy the smart contract we need to get every informations needed to create the bill of Lading. 
+In order to do that, we use the DCSA API (https://app.swaggerhub.com/apis/dcsaorg/DCSA_EBL/3.0.0-Beta-1) to standardize the documents.
