@@ -18,7 +18,6 @@ type Cargo = {
 type VesselDetails = {
     loadingPort: string;
     destinationPort: string;
-    dateOfLoading: Date;
 };
 
 type BillOfLading = {
