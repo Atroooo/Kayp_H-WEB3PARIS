@@ -21,16 +21,18 @@ def getContractList(client):
 def convert_matchs_to_dict(contracts):
     dictContractList = []
     for contract in contracts:
-        dict_match['shipper'] = model_to_dict(contract.shipper, \
+        dict_ebl['shipper'] = model_to_dict(contract.shipper, \
                                               fields=['name', 'address', 'contact'])
-        dict_match['consignee'] = model_to_dict(contract.consignee, \
+        dict_ebl['consignee'] = model_to_dict(contract.consignee, \
                                                 fields=['name', 'address', 'contact'])
-        dict_match['cargo'] = model_to_dict(contract.cargo, \
+        dict_ebl['cargo'] = model_to_dict(contract.cargo, \
                                             fields=['description', 'quantity', 'weight', 'volume', 'value'])
-        dict_match = model_to_dict(contract, \
+        dict_ebl = model_to_dict(contract, \
                                 fields=['billOfLadingNumber', 'termsOfDelivery', \
                                         'carrierSignature', 'specialInstructions'])
-        dict_match['vesselDetails'] = model_to_dict(contract.vesselDetails, \
+        dict_ebl['vesselDetails'] = model_to_dict(contract.vesselDetails, \
                                                     fields=['name', 'loadingPort', 'destinationPort', 'dateOfLoading'])
-        dictContractList.append(dict_match)
+        dict_ebl = model_to_dict(contract, \
+                                fields=['contractAddress', 'state'])
+        dictContractList.append(dict_ebl)
     return dictContractList

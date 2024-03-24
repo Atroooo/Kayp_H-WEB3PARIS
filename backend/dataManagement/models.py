@@ -34,3 +34,4 @@ class BillOfLading(models.Model):
     carrierSignature = models.CharField(max_length = 2000, default = "default")
     specialInstructions = models.CharField(max_length = 2000, default = "default")
     contractAddress = models.CharField(max_length = 100, default = "default")
+    state = models.CharField(max_length = 100, default = "in progress")
