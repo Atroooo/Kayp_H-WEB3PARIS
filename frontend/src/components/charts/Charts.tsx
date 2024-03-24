@@ -60,7 +60,7 @@ function StatsCard({ cardTitle, number, percentage }: StatsCardProps) {
                                 dataKey="subscription"
                                 style={
                                     {
-                                        fill: "var(--theme-primary)",
+                                        fill: "#3a72ed",
                                         opacity: 1,
                                         "--theme-primary": `hsl("red")`,
                                     } as React.CSSProperties
@@ -79,12 +79,12 @@ export function CardsStats() {
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
             <StatsCard
                 cardTitle="Container on delivery"
-                number="4503"
+                number="4.590"
                 percentage="+12.3% from last month"
             />
             <StatsCard
                 cardTitle="Bill of lading created"
-                number="23503"
+                number="23.103"
                 percentage="+11 from last month"
             />
         </div>

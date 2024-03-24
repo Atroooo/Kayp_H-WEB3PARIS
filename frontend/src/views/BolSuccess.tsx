@@ -9,6 +9,9 @@ import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card.tsx
 import {Button} from "@/components/ui/button.tsx";
 import {Book} from "lucide-react";
 import {IconFileDownload} from "@tabler/icons-react";
+import {Document, Page, pdfjs} from "react-pdf";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 export const BolSuccess = () => {
     const { width, height } = useWindowSize()
@@ -18,7 +21,7 @@ export const BolSuccess = () => {
             <Confetti
                 width={width}
                 height={height}
-                recycle={false}
+                recycle={true}
                 colors={['#000000', '#1FE7B6']}
                 tweenDuration={5000}
             />
@@ -55,8 +58,10 @@ export const BolSuccess = () => {
                             </div>
                         </CardContent>
                     </Card>
-
                 </div>
+                    <Document file={"http://localhost:5173/bol.pdf"} >
+                        <Page pageNumber={1} width={1700}/>
+                    </Document>
             </PageLayout>
         </>
     );

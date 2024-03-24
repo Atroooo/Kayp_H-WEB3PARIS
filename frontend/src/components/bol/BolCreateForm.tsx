@@ -26,30 +26,32 @@ import {
 } from "@/components/ui/select"
 import {commercialPorts} from "@/data/CommercialPorts.ts";
 import {Link} from "react-router-dom";
+import {createBol} from "@/services/bolService.ts";
 
+const bol= {
+    shipper: {
+        name: "Shangan Automobiles",
+        address: "10 Marsiling Rd Marsiling, Singapore"
+    },
+    consignee: {
+        name: "Renault",
+        address: "144 Friedrich Damm Hamburg, Deutschland"
+    },
+    cargo: {
+        description: "Bananas",
+        value: "150.000 $",
+    },
+    vesselDetails: {
+        loadingPort: "",
+        destinationPort: "",
+    }
+};
 
 export function BolCreateForm() {
     const {
         handleSubmit,
         register,
-    } = useForm<BillOfLading>({ defaultValues: {
-        shipper: {
-            name: "Shangan Automobiles",
-            address: "10 Marsiling Rd Marsiling, Singapore"
-        },
-        consignee: {
-            name: "Renault",
-            address: "144 Friedrich Damm Hamburg, Deutschland"
-        },
-        cargo: {
-            description: "Bananas",
-            value: "150.000 $",
-        },
-        vesselDetails: {
-            loadingPort: "",
-            destinationPort: "",
-        }
-    }})
+    } = useForm<BillOfLading>({ defaultValues: bol})
     const onSubmit: SubmitHandler<BillOfLading> = (data) => console.log(data)
 
     return (
@@ -89,8 +91,10 @@ export function BolCreateForm() {
                     <BolInputLayout title={"Additional information"}>
                         <Textarea />
                     </BolInputLayout>
+                    <Button onClick={() => createBol(bol)}>Emit bill of lading</Button>
+
                     <Link to={"/bol/success"}>
-                        <Button>Emit bill of lading</Button>
+                        <Button onClick={() => createBol(bol)}>Emit bill of lading</Button>
                     </Link>
                 </CardContent>
             </form>

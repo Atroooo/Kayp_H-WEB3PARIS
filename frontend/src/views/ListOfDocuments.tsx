@@ -7,9 +7,11 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { dataListOfDocuments } from "@/data/DataListOfDocuments.tsx";
 import {PageLayout} from "@/components/layout/PageLayout.tsx";
 import {Separator} from "@/components/ui/separator.tsx";
+import {BillOfLading} from "@/types/BillOfLading.ts";
+import {useEffect, useState} from "react";
+import {getBols} from "@/services/bolService.ts";
 
 function Statistics(): JSX.Element {
     return (
@@ -40,20 +42,22 @@ function DataTableHeader(): JSX.Element {
 }
 
 function DataTableBody(): JSX.Element {
+    const [data, setData] = useState<BillOfLading[]>([]);
+
+    useEffect(() => {
+        getBols().then((bols) => setData(bols as unknown as BillOfLading[]));
+    }, [])
     return (
         <TableBody className="">
-            {dataListOfDocuments
-                .slice()
-                .reverse()
-                .map((row) => (
+            {data.map((d) => (
                     <TableRow
-                        key={row.id}
+                        key={d.shipper.name}
                         className=" hover:bg-slate-900 hover:text-slate-50"
                     >
-                        <TableCell>{row.id}</TableCell>
-                        <TableCell>{row.status}</TableCell>
-                        <TableCell>{row.issuer}</TableCell>
-                        <TableCell className="text-right">{row.date}</TableCell>
+                        <TableCell>{d.shipper.name}</TableCell>
+                        <TableCell>{d.vesselDetails.destinationPort}</TableCell>
+                        <TableCell>{d.consignee.name}</TableCell>
+                        <TableCell className="text-right">{d.vesselDetails.destinationPort}</TableCell>
                     </TableRow>
                 ))}
         </TableBody>
