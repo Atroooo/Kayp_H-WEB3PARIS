@@ -2,7 +2,7 @@ import {BillOfLading} from "@/types/BillOfLading.ts";
 
 export const createBol = async (bol: BillOfLading) => {
 
-        const rawResponse = await fetch('http://localhost:8000/manageContract', {
+        const rawResponse = await fetch('http://localhost:8000/dataManagement/manageContract/', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -18,7 +18,7 @@ export const createBol = async (bol: BillOfLading) => {
 
 export const getBols = async () => {
 
-    const rawResponse = await fetch('http://localhost:8000/manageContract', {
+    const rawResponse = await fetch('http://localhost:8000/dataManagement/manageContract', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',

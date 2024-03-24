@@ -9,7 +9,7 @@ from .contractUtils import parseData, deployContract
 class manageContract(View):
 
     def get(self, request):
-        client = getClient(request.client)
+        client = getClient(request.user)
         contracts = getContractList(client)
         return JsonResponse({'contracts': contracts}, status = 200)
 

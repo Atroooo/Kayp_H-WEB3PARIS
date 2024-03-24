@@ -13,9 +13,7 @@ Follow these steps to clone the repository and start the development server:
 In an other terminal
 
 -  Go at the root of the repository
-- `pip install -r backend/requirements.txt` (python version needed <= 3.10.12)
-- `cd backend`
-- `python manage.py runserver`
+- `make`
 
 You should now be able to access the application at http://localhost:5173.
 
