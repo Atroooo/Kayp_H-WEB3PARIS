@@ -56,3 +56,7 @@ def storePartHashes(self, part_hashes):
 	for item in part_hashes.items():
 		self.data.stored_part_hashes[item.key] = item.value
 ```
+### Link of the smart contract
+`
+https://ghostnet.tzkt.io/KT1QJ3W5d6TidAzFanLJEn4z9WKUPVcTZj1H/storage/
+`
