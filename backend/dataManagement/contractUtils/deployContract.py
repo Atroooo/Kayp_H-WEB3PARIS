@@ -2,7 +2,7 @@ from pytezos import pytezos
 from pytezos import ContractInterface
 from pytezos.operation.result import OperationResult
 
-from dataManagement.models import models, BillOfLading
+from dataManagement import models
 
 key = "edskS2w2qaNik7bepNQi1MinJ52ratUHUJzbnyumdLJMcfGBH9U3p8yjk3Gs1Lh84iSNNfXTbNLkEvekpYB5FTnqAFezNF4jkk"
 pytezosWallet = pytezos.using(key=key)
@@ -23,7 +23,7 @@ def deployContract(bill):
     """
     global key, pytezosWallet
 
-    contract = ContractInterface.from_file('deployerContract.tz')
+    contract = ContractInterface.from_file('/volumeBackend/dataManagement/contractUtils/deployerContract.tz')
     ci = contract.using(key=key)
 
     value = pytezosWallet.origination(script=ci.script()).send(min_confirmations=1)
@@ -50,7 +50,7 @@ def checkIfContractIsActive(billOfLadingID):
     """
     billOfLadingList = models.BillOfLading.objects.all()
     for billOfLading in billOfLadingList:
-        if billOfLading.billOfLadingNumber == billOfLadingID:
+        if billOfLading.billOfLadingNumber == billOfLadingID and billOfLading.contractAddress != "default":
             return billOfLading.contractAddress
     return None
 
@@ -71,12 +71,16 @@ def fillContract(contractAddress, contractID, mainHash, hashedData):
     arg4 : map
         every data field hashed
 
+
     """
     builder = pytezos.contract(contractAddress)
 
     mainHash = str(mainHash).encode('utf-8')
     hashedDataEncoded = dict()
     for key, value in hashedData.items():
-        hashedDataEncoded[key] = str(value).encode('utf-8')
+        if (isinstance(value, dict)):
+            for key2, value2 in value.items():
+                hashedDataEncoded[key2] = str(value2).encode('utf-8')
 
+    print(contractID, hashedDataEncoded, mainHash)
     opg = pytezos.bulk(builder.CreateContract(contractID, hashedDataEncoded, mainHash)).send(min_confirmations=1)

@@ -1,13 +1,18 @@
 import {BillOfLading} from "@/types/BillOfLading.ts";
+import {getCsrfToken} from "@/services/loginService.tsx";
 
 export const createBol = async (bol: BillOfLading) => {
 
-        const rawResponse = await fetch('http://localhost:8000/dataManagement/manageContract/', {
+    const csrfToken = await getCsrfToken();
+
+    const rawResponse = await fetch('http://localhost:8000/dataManagement/manageContract/', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "X-CSRFToken": csrfToken,
             },
+            credentials: "include",
             body: JSON.stringify(bol)
         });
         const content = await rawResponse.json();

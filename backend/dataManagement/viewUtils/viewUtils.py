@@ -1,11 +1,10 @@
 from dataManagement.models import models
 from django.forms.models import model_to_dict
 
-from dataManagement.models import BillOfLading, Shipper, Consignee, Cargo, VesselDetails
+from dataManagement import models
 
 def getClient(clientName):
     shippers = models.Shipper.objects.all()
-    client = None
     for shipper in shippers:
         if shipper.name == clientName:
             return shipper
