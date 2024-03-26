@@ -1,5 +1,7 @@
 ![Color_logo_with_background](https://github.com/Atroooo/BPELO/assets/117669219/41792310-cb7b-402a-9e54-0781a5e53cc5)
 
+# PROJECT WINNER OF [H-W3B Paris](https://www.hackathon-w3b.com/en/paris).
+
 # What is KAYP ?
 
 KAYP aims to transform the maritime industry by digitalizing document trade, starting with the bill of lading.
