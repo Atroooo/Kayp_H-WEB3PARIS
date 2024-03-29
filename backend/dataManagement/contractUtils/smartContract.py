@@ -5,7 +5,7 @@ import smartpy as sp
 @sp.module
 def main():
     class HashStorage(sp.Contract):
-        def __init__(self, id):
+        def __init__(self, id): # init everything
             self.data.id = id
             self.data.stored_whole_hash = sp.bytes("0x")
             self.data.stored_part_hashes = sp.cast(
@@ -27,43 +27,43 @@ def main():
 # Factory Smart Contract creating a new contract for each bill of lading.
     class Deployer(sp.Contract):
         def __init__(self):
-            self.data.contracts = sp.cast(
+            self.data.contracts = sp.cast( # init the map of contracts
                 {},
                 sp.map[sp.nat, sp.address]
             )
 
-# if the id is in the database, we call the corresponding contract to store the new
-# hash. Else, we create a new contract and store it in the database.
+# The idea is: if the id is in the database, we call the corresponding contract to store the new hash.
+# Else, we create a new contract and store it in the database.
         @sp.entrypoint
         def CreateContract(self, id, whole_hash, part_hashes):
-            if self.data.contracts.contains(id):
+            if self.data.contracts.contains(id): # Check if the we know the contract
                 old_contract_address = self.data.contracts[id]
 
-                contract_instance_whole = sp.contract(
+                contract_instance_whole = sp.contract( # create an instance of the function we want in the contract we want.
                     sp.bytes,
                     old_contract_address,
-                    "storeHash"
-                ).unwrap_some(error="Didn't find contract")
+                    "storeHash" # name of the function we want.
+                ).unwrap_some(error="Didn't find contract") # error message if failure
 
-                sp.transfer(
+                sp.transfer( # Call the function.
                     whole_hash,
                     sp.tez(0),
                     contract_instance_whole
                 )
 
-                contract_instance_part = sp.contract(
+                contract_instance_part = sp.contract( # same thing to the map of part_hashes. I'm sure we can do all that in one function but idk how to do it.
                     sp.map[sp.string, sp.bytes],
                     old_contract_address,
                     "storePartHashes"
-                ).unwrap_some(error="Didn't find contract")
+                ).unwrap_some(error="Didn't find contract") # error message if failure
 
                 sp.transfer(
                     part_hashes,
                     sp.tez(0),
                     contract_instance_part
                 )
-            else:
-                new_contract_address = sp.create_contract(
+            else: # We don't know the contract yet.
+                new_contract_address = sp.create_contract( # A new smart contract is created. The initialization seems to directly call the functions of the contract. Don't really understand but it works.
                                         HashStorage,
                                         None,
                                         sp.tez(0),
@@ -73,7 +73,7 @@ def main():
                                             stored_part_hashes = part_hashes
                                             )
                                         )
-                self.data.contracts[id] = new_contract_address
+                self.data.contracts[id] = new_contract_address # store the id and address of the newly created contract in a map.
 
 @sp.add_test()
 def test():

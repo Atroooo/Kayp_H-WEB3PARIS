@@ -76,6 +76,8 @@ def storePartHashes(self, part_hashes):
 		self.data.stored_part_hashes[item.key] = item.value
 ```
 
+- Language - [SmartPy](https://smartpy.io/)
+
 ### [Smart contract link](https://ghostnet.tzkt.io/KT1QJ3W5d6TidAzFanLJEn4z9WKUPVcTZj1H/storage/)
 
 # Backend
